@@ -6,6 +6,7 @@ import MoreSection from "@/components/travelpage/MoreSection";
 import { Layout } from "@/layout";
 import { CommonContainer, CommonWrapper } from "@/styles/commons";
 import BottomNavigation from "@/components/Navbar/BottomNav";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
 
 const TourImages = [
   {
@@ -60,6 +61,12 @@ const TourImages = [
 ];
 
 export default function TourAndExperience() {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  const tourdata = getServiceDataByCategory("TOURS AND EXPERIENCES");
+
+  console.log("it works", tourdata);
+
   return (
     <Layout
       title="Tours & Experience services"
