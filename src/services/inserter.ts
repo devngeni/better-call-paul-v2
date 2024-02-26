@@ -76,4 +76,18 @@ export class Service {
       throw new Error(e);
     }
   }
+  async getByCategoryAndSubTitle(keyword: any): Promise<boolean | any[]> {
+    try {
+      const category = await ServiceItem.find({
+        category: keyword,
+      });
+
+      if (!category) {
+        return false;
+      }
+      return category;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
