@@ -1,6 +1,5 @@
 import { Footer } from "@/components/Footer";
 import { Navbar, NavigationBar } from "@/components/Navbar";
-import { TourData } from "@/components/tourpage/TourData";
 import TourPage from "@/components/tourpage/TourSection";
 import MoreSection from "@/components/travelpage/MoreSection";
 import { Layout } from "@/layout";
@@ -63,9 +62,28 @@ const TourImages = [
 export default function TourAndExperience() {
   const { getServiceDataByCategory } = useServicesDataContext();
 
-  const tourdata = getServiceDataByCategory("TOURS AND EXPERIENCES");
+  const TourData = getServiceDataByCategory("TOURS AND EXPERIENCES");
 
-  console.log("it works", tourdata);
+  function groupItemsBySubtitle(items: any[]) {
+    const groupedItems: any = {};
+    // Group items by their subTitle
+    items.forEach((item: { subTitle: string | number; content: any }) => {
+      if (!groupedItems[item.subTitle]) {
+        groupedItems[item.subTitle] = [];
+      }
+      groupedItems[item.subTitle].push(item.content);
+    });
+
+    // Transform grouped items into desired format
+    const formattedItems = Object.keys(groupedItems).map((subTitle) => {
+      return {
+        subTitle: subTitle,
+        content: groupedItems[subTitle].flat(),
+      };
+    });
+
+    return formattedItems;
+  }
 
   return (
     <Layout
@@ -76,7 +94,7 @@ export default function TourAndExperience() {
       footer={<Footer />}
       bottomNav={<BottomNavigation />}
     >
-      <TourPage mappedData={TourData} />
+      <TourPage mappedData={groupItemsBySubtitle(TourData)} />
       <CommonContainer>
         <CommonWrapper>
           <MoreSection
