@@ -67,7 +67,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
   activeTab,
   updateActiveTab,
   tabs,
-  tourData
+  tourData,
 }) => {
   const [defaultTabClicked, setDefaultTabClicked] = useState(false);
 
@@ -77,7 +77,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
     router.push(`/our-services/${name}`);
   };
 
-  const activeSubTitle = tourData.find(
+  const activeSubTitle = tourData?.find(
     (data) => data.subTitle.toLowerCase() === activeTab.toLowerCase()
   );
 
@@ -96,7 +96,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
     price,
     image,
     category,
-    quantity
+    quantity,
   }: ProductType) => {
     dispatch({
       type: "ADD",
@@ -106,24 +106,27 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
         price,
         image,
         category,
-        quantity: quantity || 1
-      }
+        quantity: quantity || 1,
+      },
     });
   };
 
   const prepareAddToCart = (product: ProductType) => () => {
     handleAddToCart(product);
   };
-  const handleTabClick = useCallback((name: string) => {
-    updateActiveTab(name);
-  }, [updateActiveTab]);
+  const handleTabClick = useCallback(
+    (name: string) => {
+      updateActiveTab(name);
+    },
+    [updateActiveTab]
+  );
 
   useEffect(() => {
-  if (!defaultTabClicked && tabs.length > 0) {
-    handleTabClick(tabs[0].name);
-    setDefaultTabClicked(true);
-  }
-}, [defaultTabClicked, tabs, handleTabClick]);
+    if (!defaultTabClicked && tabs.length > 0) {
+      handleTabClick(tabs[0].name);
+      setDefaultTabClicked(true);
+    }
+  }, [defaultTabClicked, tabs, handleTabClick]);
 
   return (
     <>
@@ -165,7 +168,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
                       price: Number(price),
                       image: imagePath.src,
                       category: activeSubTitle.subTitle,
-                      quantity: 1
+                      quantity: 1,
                     })}
                   />
                 </CardContainer>

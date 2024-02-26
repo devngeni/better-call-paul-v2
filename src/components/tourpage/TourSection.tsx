@@ -4,13 +4,24 @@ import TopNavbar from "../travelpage/TopNavbar";
 import BottomNavbar from "../travelpage/BottomNavbar";
 import HeroSection from "../travelpage/HeroSection";
 import { FullDayIcon, Night, Noon } from "../../../public/Icons";
-import { TourData, TourDataType } from "./TourData";
+import { StaticImageData } from "next/image";
+
+interface TourDataType {
+  subTitle: string;
+  content: {
+    name: string;
+    description?: string;
+    imagePath: StaticImageData;
+    price?: number | string;
+  }[];
+}
 
 const menuItems = [
   { name: "Full Day Trip", icon: <FullDayIcon /> },
   { name: "Half Day Trip", icon: <Noon /> },
   { name: "Out of Town", icon: <Night /> },
 ];
+
 
 const TourPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
   const [currentSelection, setCurrentSelection] = useState(
@@ -38,7 +49,7 @@ const TourPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        tourData={TourData}
+        tourData={mappedData}
       />
     </>
   );
