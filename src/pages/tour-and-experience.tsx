@@ -6,6 +6,7 @@ import { Layout } from "@/layout";
 import { CommonContainer, CommonWrapper } from "@/styles/commons";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 
 const TourImages = [
   {
@@ -64,27 +65,6 @@ export default function TourAndExperience() {
 
   const TourData = getServiceDataByCategory("TOURS AND EXPERIENCES");
 
-  function groupItemsBySubtitle(items: any[]) {
-    const groupedItems: any = {};
-    // Group items by their subTitle
-    items.forEach((item: { subTitle: string | number; content: any }) => {
-      if (!groupedItems[item.subTitle]) {
-        groupedItems[item.subTitle] = [];
-      }
-      groupedItems[item.subTitle].push(item.content);
-    });
-
-    // Transform grouped items into desired format
-    const formattedItems = Object.keys(groupedItems).map((subTitle) => {
-      return {
-        subTitle: subTitle,
-        content: groupedItems[subTitle].flat(),
-      };
-    });
-
-    return formattedItems;
-  }
-
   return (
     <Layout
       title="Tours & Experience services"
@@ -95,6 +75,7 @@ export default function TourAndExperience() {
       bottomNav={<BottomNavigation />}
     >
       <TourPage mappedData={groupItemsBySubtitle(TourData)} />
+
       <CommonContainer>
         <CommonWrapper>
           <MoreSection

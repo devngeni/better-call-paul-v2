@@ -5,11 +5,12 @@ import { Layout } from "@/layout";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
+import { CATEGORIES } from "../../constants";
 
 export default function FitnessPage() {
   const { getServiceDataByCategory } = useServicesDataContext();
 
-  const wellnessData = getServiceDataByCategory("WELLNESS AND GROOMING");
+  const wellnessData = getServiceDataByCategory(CATEGORIES.wellness);
 
   return (
     <Layout
