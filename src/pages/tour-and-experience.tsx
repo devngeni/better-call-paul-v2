@@ -65,6 +65,8 @@ export default function TourAndExperience() {
 
   const TourData = getServiceDataByCategory("TOURS AND EXPERIENCES");
 
+  console.log(TourData, "tourdata");
+
   return (
     <Layout
       title="Tours & Experience services"

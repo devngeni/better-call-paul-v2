@@ -15,6 +15,7 @@ export function groupItemsBySubtitle(items: any[]) {
     return {
       subTitle: subTitle,
       content: groupedItems[subTitle].flat(),
+      //   image: groupedItems[imagePath],
     };
   });
 

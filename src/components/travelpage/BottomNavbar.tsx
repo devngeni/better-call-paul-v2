@@ -153,7 +153,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
                   <Card
                     productName={name}
                     description={description}
-                    imageSrc={imagePath.src}
+                    imageSrc={imagePath}
                     price={Number(price)}
                     quantity={0}
                     category={activeSubTitle.subTitle}
@@ -166,7 +166,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
                       id: Math.random(),
                       name,
                       price: Number(price),
-                      image: imagePath.src,
+                      image: imagePath,
                       category: activeSubTitle.subTitle,
                       quantity: 1,
                     })}
