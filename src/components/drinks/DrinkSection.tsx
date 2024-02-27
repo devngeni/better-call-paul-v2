@@ -4,7 +4,6 @@ import TopNavbar from "../travelpage/TopNavbar";
 import HeroSection from "../travelpage/HeroSection";
 import BottomNavbar from "../travelpage/BottomNavbar";
 import { AirTrIcon, ChaufferIcon, HireCarIcon } from "../../../public/Icons";
-import { drinkdata } from "./drinksdata";
 
 const menuItems = [
   { name: "Soft Drinks", icon: <AirTrIcon /> },

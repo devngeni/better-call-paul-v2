@@ -4,7 +4,6 @@ import BottomNavbar from "../travelpage/BottomNavbar";
 import HeroSection from "../travelpage/HeroSection";
 import TopNavbar from "../travelpage/TopNavbar";
 import { FullDayIcon, Night, Noon } from "../../../public/Icons";
-import { GroomData } from "./GroomData";
 
 const menuItems = [
   { name: "Massage", icon: <FullDayIcon /> },

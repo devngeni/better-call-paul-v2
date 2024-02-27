@@ -4,8 +4,6 @@ import HeroSection from "./HeroSection";
 import BottomNavbar from "./BottomNavbar";
 import { useRouter } from "next/router";
 import { AirTrIcon, ChaufferIcon, HireCarIcon } from "../../../public/Icons";
-import { vehiclesData } from "./CarData";
-import { TourDataType } from "../tourpage/TourData";
 
 const menuItems = [
   { name: "Airport Transfer", icon: <AirTrIcon /> },
@@ -13,7 +11,7 @@ const menuItems = [
   { name: "Chauffeur", icon: <ChaufferIcon /> },
 ];
 
-const TravelPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
+const TravelPage = ({ mappedData }: { mappedData: any[] }) => {
   const [currentSelection, setCurrentSelection] = useState(
     "Travel Concierge & Services"
   );
