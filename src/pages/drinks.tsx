@@ -59,7 +59,7 @@ export default function TourAndCoincierge() {
       footer={<Footer />}
       bottomNav={<BottomNavigation />}
     >
-      <DrinkSection drinksData={drinksData} />
+      <DrinkSection drinksData={groupItemsBySubtitle(drinksData)} />
       <CommonContainer>
         <CommonWrapper>
           <MoreSection
