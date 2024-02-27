@@ -28,13 +28,13 @@ import carseat from "../../../public/DealsImages/carseat.png";
 import bicycle from "../../../public/DealsImages/bicycle.png";
 import golf from "../../../public/DealsImages/golf.png";
 import bluetooth from "../../../public/DealsImages/bluetooth.png";
-import console from "../../../public/DealsImages/console.png";
+import Gameconsole from "../../../public/DealsImages/console.png";
 import skybuilding from "../../../public/DealsImages/prop.jpg";
 import baking from "../../../public/DealsImages/baking.png";
 import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { text } from "stream/consumers";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -985,7 +985,7 @@ const fetchDataBasedOnSlug = async (slug: string) => {
                 content: "Gaming consoles",
                 hotelDescription: "Available on request",
                 name: "Title 1",
-                image: console,
+                image: Gameconsole,
               },
             ],
           },
@@ -1093,6 +1093,10 @@ const fetchDataBasedOnSlug = async (slug: string) => {
 };
 
 export default function SlugPage({ data }: any) {
+  const { getServiceDataByCategory, data: alldata } = useServicesDataContext();
+
+  console.log("shoppingData", alldata);
+
   if (!data) {
     return <div>Loading...</div>;
   }

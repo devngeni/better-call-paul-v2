@@ -67,7 +67,7 @@ export default function TourAndExperience() {
   function groupItemsBySubtitle(items: any[]) {
     const groupedItems: any = {};
     // Group items by their subTitle
-    items.forEach((item: { subTitle: string | number; content: any }) => {
+    items?.forEach((item: { subTitle: string | number; content: any }) => {
       if (!groupedItems[item.subTitle]) {
         groupedItems[item.subTitle] = [];
       }
