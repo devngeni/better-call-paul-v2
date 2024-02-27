@@ -13,12 +13,14 @@ const menuItems = [
   { name: "Waxing", icon: <Night /> },
 ];
 
-const GroomSection = () => {
+const GroomSection = ({ wellnessData }: any) => {
   const [currentSelection, setCurrentSelection] = useState("Services");
   const router = useRouter();
   const handleBack = () => {
     router.back();
   };
+
+  console.log("wellness", wellnessData);
 
   const handleSelectionChange = (selection: string) => {
     setCurrentSelection(selection);
@@ -36,7 +38,8 @@ const GroomSection = () => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        tourData={GroomData}
+        //tourData={GroomData}
+        tourData={wellnessData}
       />
     </>
   );

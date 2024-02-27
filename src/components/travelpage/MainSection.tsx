@@ -25,6 +25,7 @@ const TravelPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
   const handleSelectionChange = (selection: string) => {
     setCurrentSelection(selection);
   };
+  if (!mappedData) return null;
   return (
     <>
       <TopNavbar currentSelection={currentSelection} onBack={handleBack} />
@@ -37,7 +38,7 @@ const TravelPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        tourData={vehiclesData}
+        tourData={mappedData}
       />
     </>
   );
