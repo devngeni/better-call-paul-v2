@@ -7,6 +7,7 @@ import MoreSection from "@/components/travelpage/MoreSection";
 import { Layout } from "@/layout";
 import { CommonContainer, CommonWrapper } from "@/styles/commons";
 import TasteOfKenyaAd from "@/components/TasteOfKenyaAd";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
 
 const Water = [
   {
@@ -24,6 +25,31 @@ const Water = [
 ];
 
 export default function TourAndCoincierge() {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  const drinksData = getServiceDataByCategory("DRINKS");
+
+  function groupItemsBySubtitle(items: any[]) {
+    const groupedItems: any = {};
+    // Group items by their subTitle
+    items.forEach((item: { subTitle: string | number; content: any }) => {
+      if (!groupedItems[item.subTitle]) {
+        groupedItems[item.subTitle] = [];
+      }
+      groupedItems[item.subTitle].push(item.content);
+    });
+
+    // Transform grouped items into desired format
+    const formattedItems = Object.keys(groupedItems).map((subTitle) => {
+      return {
+        subTitle: subTitle,
+        content: groupedItems[subTitle].flat(),
+      };
+    });
+
+    return formattedItems;
+  }
+
   return (
     <Layout
       title="Drinks"
@@ -33,7 +59,7 @@ export default function TourAndCoincierge() {
       footer={<Footer />}
       bottomNav={<BottomNavigation />}
     >
-      <DrinkSection />
+      <DrinkSection drinksData={drinksData} />
       <CommonContainer>
         <CommonWrapper>
           <MoreSection

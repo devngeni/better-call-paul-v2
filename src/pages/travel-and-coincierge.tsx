@@ -9,7 +9,7 @@ import { useServicesDataContext } from "@/context/GetServicesDataContext";
 export default function TravelAndPage() {
   const { getServiceDataByCategory } = useServicesDataContext();
 
-  const TourData = getServiceDataByCategory("TRAVEL CONCIERGE");
+  const TravelData = getServiceDataByCategory("TRAVEL CONCIERGE");
 
   function groupItemsBySubtitle(items: any[]) {
     const groupedItems: any = {};
@@ -42,7 +42,7 @@ export default function TravelAndPage() {
       bottomNav={<BottomNavigation />}
     >
       {/* <TravelPage mappedData={vehiclesData} /> */}
-      <TravelPage mappedData={groupItemsBySubtitle(TourData)} />
+      <TravelPage mappedData={groupItemsBySubtitle(TravelData)} />
     </Layout>
   );
 }

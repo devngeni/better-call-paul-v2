@@ -3,8 +3,13 @@ import { Navbar, NavigationBar } from "@/components/Navbar";
 import GroomSection from "@/components/wellness/GroomSection";
 import { Layout } from "@/layout";
 import BottomNavigation from "@/components/Navbar/BottomNav";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
 
 export default function FitnessPage() {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  const wellnessData = getServiceDataByCategory("WELLNESS AND GROOMING");
+
   return (
     <Layout
       title="Fitness and Wellness Services"
@@ -14,7 +19,7 @@ export default function FitnessPage() {
       bottomNav={<BottomNavigation />}
       navigationbar={<NavigationBar />}
     >
-      <GroomSection />
+      <GroomSection wellnessData={wellnessData} />
     </Layout>
   );
 }

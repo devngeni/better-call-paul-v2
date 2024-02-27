@@ -13,7 +13,7 @@ const menuItems = [
   { name: "Vodka", icon: <ChaufferIcon /> },
 ];
 
-const DrinkSection = () => {
+const DrinkSection = ({ drinksData }: any) => {
   const [currentSelection, setCurrentSelection] = useState("Drinks");
   const router = useRouter();
   const handleBack = () => {
@@ -36,7 +36,8 @@ const DrinkSection = () => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        tourData={drinkdata}
+        // tourData={drinkdata}
+        tourData={drinksData}
       />
     </>
   );
