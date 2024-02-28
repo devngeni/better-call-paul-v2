@@ -1,6 +1,6 @@
 // import "dotenv/config";
 import mongoose from "mongoose";
-import { Environment } from "../../../constants/environment";
+import { Environment } from "../../constants/environment";
 
 const dbUrl = Environment._db__;
 
