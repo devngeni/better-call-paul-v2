@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectDB } from "./db-connection";
+import { connectDB } from "../../utils/db-connection";
 
 type Data = {
   name: string;
