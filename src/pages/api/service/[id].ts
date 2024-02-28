@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectDB } from "../db-connection";
-import ServiceItemModel from "../models/service.model";
+import { connectDB } from "../../../utils/db-connection";
+import ServiceItemModel from "../../../../models/service.model";
 import { Service } from "@/services/inserter";
 
 export default async function handler(

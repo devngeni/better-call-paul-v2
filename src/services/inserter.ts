@@ -1,5 +1,5 @@
 import { lookupService } from "dns/promises";
-import ServiceItem from "../pages/api/models/service.model";
+import ServiceItem from "../../models/service.model";
 
 export class Service {
   bodyData: any;
