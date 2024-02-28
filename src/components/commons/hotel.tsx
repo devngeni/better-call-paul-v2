@@ -20,7 +20,7 @@ export const ImageCover = styled.div`
   width: 100%;
   height: 250px;
   border-radius: 15px;
-  background-color: #FFEFD5;
+  background-color: #ffefd5;
   overflow: hidden;
   img {
     border-radius: 5px;
@@ -135,15 +135,16 @@ const Hotel = ({
     window.open(url);
   };
 
-  const getImageUrl = (imageData: StaticImageData): string => {
-    const defaultImageUrl = "/magical.png";
+  // const getImageUrl = (imageData: StaticImageData): string => {
+  //   const defaultImageUrl = "/magical.png";
 
-    if (!imageData || !imageData.src) {
-      return defaultImageUrl;
-    }
+  //   if (!imageData || !imageData.src) {
+  //     return defaultImageUrl;
+  //   }
 
-    return imageData.src;
-  };
+  //   return imageData.src;
+  // };
+
   interface ProductType {
     id: number;
     name: string;
@@ -158,7 +159,7 @@ const Hotel = ({
       id: Math.random(),
       name: content,
       price: price || 0,
-      image: getImageUrl(src),
+      image: src,
       category: "Your Category",
       quantity: 1,
     };

@@ -8,7 +8,9 @@ interface ServicesDataContextProps {
   isError: any;
 }
 
-const ServicesDataContext = createContext({} as ServicesDataContextProps);
+export const ServicesDataContext = createContext(
+  {} as ServicesDataContextProps
+);
 
 // Define a fetcher function
 const fetcher = async (url: string) => {
