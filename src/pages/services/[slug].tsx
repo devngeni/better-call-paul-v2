@@ -28,13 +28,13 @@ import carseat from "../../../public/DealsImages/carseat.png";
 import bicycle from "../../../public/DealsImages/bicycle.png";
 import golf from "../../../public/DealsImages/golf.png";
 import bluetooth from "../../../public/DealsImages/bluetooth.png";
-import console from "../../../public/DealsImages/console.png";
+import Gameconsole from "../../../public/DealsImages/console.png";
 import skybuilding from "../../../public/DealsImages/prop.jpg";
 import baking from "../../../public/DealsImages/baking.png";
 import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { text } from "stream/consumers";
+import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -45,7 +45,10 @@ export const getIconComponent = (iconName: any) => {
   }
 };
 
-const fetchDataBasedOnSlug = async (slug: string) => {
+const fetchDataBasedOnSlug = async (
+  slug: string,
+  getServiceDataByCategory: any
+) => {
   let data: any = {};
   switch (slug) {
     case "private-chef":
@@ -115,6 +118,8 @@ const fetchDataBasedOnSlug = async (slug: string) => {
       };
       break;
     case "gift-shop":
+      const giftShopdata = formattedData(getServiceDataByCategory("GIFTSHOP"));
+
       data = {
         tabs: [{ name: "Available Gifts" }],
         title: "Giftshop",
@@ -123,131 +128,8 @@ const fetchDataBasedOnSlug = async (slug: string) => {
         backgroundImage: "/GiftshopImages/Filson.png",
         hotelsData: [
           {
-            subTitle: "Available Gifts",
-            content: [
-              {
-                content: "Hoodies",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Hoodies,
-                hotelDescription:
-                  "Note that customized hoodies may need a grace period of 2days",
-                price: 35,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "T-Shirts",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: TShirt,
-                price: 15,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Water Bottles Aluminum steel",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Bottle,
-                price: 7,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Beer Mugs ",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Beer,
-                price: 8,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Magic mug",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Magic,
-                price: 5.5,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Caps",
-                hotelDescription:
-                  "Note that customized caps may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Cap,
-                price: 15,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Safari Hats",
-                hotelDescription:
-                  "Note that customized safari hats may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Hat,
-                price: 20,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Mugs",
-                hotelDescription:
-                  "Note that customized mugs may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Mugs,
-                price: 35,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Key Holders",
-                hotelDescription:
-                  "Note that customized key holders may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: KeyHolders,
-                price: 4,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Fridge Magnet",
-                hotelDescription:
-                  "Note that customized fridge magnet may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: FridgeMagnet,
-                price: 5,
-                imageHeight: 30,
-                imageWidth: 100,
-              },
-              {
-                content: "Wristbands",
-                hotelDescription:
-                  "Note that customized wristbands may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Wrist,
-                price: 10,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Flowers",
-                hotelDescription:
-                  "Note that customized flowers may need a grace period of 2days",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Flowers,
-                price: 15,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-              {
-                content: "Customized Gifts",
-                info: "Hello Paul, I’m looking for a gift, can I explore your giftshop?",
-                image: Customize,
-                hotelDescription:
-                  "Note that customized gifts may need a grace period of 2days",
-                price: 0,
-                imageHeight: 20,
-                imageWidth: 50,
-              },
-            ],
+            subTitle: giftShopdata[0].subTitle,
+            content: giftShopdata[0].content,
           },
         ],
         faqsTitle: "Gift Shop Service",
@@ -417,6 +299,7 @@ const fetchDataBasedOnSlug = async (slug: string) => {
       };
       break;
     case "nanny-service":
+      const nannyData = getServiceDataByCategory("NANNY SERVICE");
       data = {
         tabs: [{ name: "Nanny Services" }],
         title: "Nanny Services",
@@ -424,14 +307,13 @@ const fetchDataBasedOnSlug = async (slug: string) => {
         backgroundImage: "/DealsImages/nanny1.jpg",
         hotelsData: [
           {
-            subTitle: "Nanny Services",
+            subTitle: nannyData[0].subTitle,
             content: [
               {
-                content: "Catalogue of available items for rent",
-                hotelDescription:
-                  "In addition to the mentioned items, BCP Concierge Services may offer a range of other conveniences such as high chairs for babies and toddlers, beach gear (e.g., umbrellas, beachchairs, towels), bicycles, fitness equipment, and more, depending on the location and guestneeds. • Baby Cot• Car Seat • Sofa Bed• Baking Equipment • Bikes• Golf Kits• Feeding Chairs• Speaker• Pocket Wif",
-                image: carseat,
-                price: 10,
+                content: nannyData[0].content[0].name,
+                hotelDescription: nannyData[0].content[0].description,
+                image: nannyData[0].content[0].imagePath,
+                price: nannyData[0].content[0].price,
                 info: "HelloPaul, looking for quality childcare. Can I explore your nanny services?",
               },
             ],
@@ -767,6 +649,8 @@ const fetchDataBasedOnSlug = async (slug: string) => {
       };
       break;
     case "shopping":
+      const shoppingData = getServiceDataByCategory("SHOPPING & GROCERY RUNS");
+
       data = {
         tabs: [{ name: "Shopping" }],
         title: "Shopping & Grocery runs",
@@ -779,18 +663,11 @@ const fetchDataBasedOnSlug = async (slug: string) => {
             subTitle: "Shopping",
             content: [
               {
-                content: `Personalized Shopping Services`,
-                hotelDescription: `Personalized Shopping Services for guests. Here’s how it works:
-                Grocery Shopping: Guests can provide a list of grocery items they would like for their stay.
-                This can include everyday essentials, fresh produce, snacks, beverages, and any specific
-                dietary preferences or special requests. BCP ensures that these items are purchased and
-                stocked in the rental property before the guest’s arrival.
-                The shopping and grocery run services are designed to save guests time and effort during
-                their stay allowing you to make the most of their vacation or business trip without spending
-                hours shopping for essentials.`,
-                image: "/grocery-run.png",
+                content: shoppingData[0].content[0].name,
+                hotelDescription: shoppingData[0].content[0].description,
+                image: shoppingData[0].content[0].imagePath,
                 info: `Hello Paul, I’m running low on groceries. Can you handle that for me?`,
-                price: 10,
+                price: shoppingData[0].content[0].price,
               },
             ],
           },
@@ -985,7 +862,7 @@ const fetchDataBasedOnSlug = async (slug: string) => {
                 content: "Gaming consoles",
                 hotelDescription: "Available on request",
                 name: "Title 1",
-                image: console,
+                image: Gameconsole,
               },
             ],
           },
@@ -1092,7 +969,31 @@ const fetchDataBasedOnSlug = async (slug: string) => {
   return data;
 };
 
-export default function SlugPage({ data }: any) {
+export function formattedData(dataItems: any[]) {
+  let mergedContent: any[] = [];
+  dataItems.forEach((item: any) => {
+    mergedContent = mergedContent.concat(
+      item.content.map((content: any) => ({
+        content: content.name,
+        name: content.name,
+        hotelDescription: content.description,
+        image: content.imagePath,
+        price: content.price,
+      }))
+    );
+  });
+
+  return [
+    {
+      subTitle: dataItems[0].subTitle,
+      content: mergedContent,
+    },
+  ];
+}
+
+export default function SlugPage({ data, fetchedData }: any) {
+  // console.log("fetchedData", fetchedData);
+
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -1108,11 +1009,27 @@ export default function SlugPage({ data }: any) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
 
-  const data = await fetchDataBasedOnSlug(slug as string);
+  const res = await fetch(`${process.env.BASE_URL}/api/service`);
+
+  const fetchedData = await res.json();
+
+  const getServiceDataByCategory = (category: string) => {
+    if (fetchedData) {
+      return fetchedData.services.filter(
+        (item: any) => item.category === category
+      );
+    }
+  };
+
+  const data = await fetchDataBasedOnSlug(
+    slug as string,
+    getServiceDataByCategory
+  );
 
   return {
     props: {
       data,
+      fetchedData,
     },
   };
 };

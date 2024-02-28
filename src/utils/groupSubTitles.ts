@@ -3,11 +3,13 @@ export function groupItemsBySubtitle(items: any[]) {
   // Group items by their subTitle
 
   items &&
-    items.forEach((item: { subTitle: string | number; content: any }) => {
-      if (!groupedItems[item.subTitle]) {
-        groupedItems[item.subTitle] = [];
+    items.forEach((item: any) => {
+      const subTitle = item.subTitle.trim(); // Remove leading and trailing whitespaces
+
+      if (!groupedItems[subTitle]) {
+        groupedItems[subTitle] = [];
       }
-      groupedItems[item.subTitle].push(item.content);
+      groupedItems[subTitle].push(item.content);
     });
 
   // Transform grouped items into desired format
@@ -15,7 +17,6 @@ export function groupItemsBySubtitle(items: any[]) {
     return {
       subTitle: subTitle,
       content: groupedItems[subTitle].flat(),
-      //   image: groupedItems[imagePath],
     };
   });
 

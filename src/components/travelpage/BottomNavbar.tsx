@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { TourDataType } from "../tourpage/TourData";
 import { CardContainer, CardWrapper } from "@/styles/commons";
 import { useRouter } from "next/router";
 import { generateSlug } from "@/utils";
 import Card from "./CardComponent";
 import { useCartDispatch } from "@/context/CartContext";
 import AdsSection from "@/styles/landingPageStyles/Ads";
+
 interface BottomNavbarProps {
   activeTab: string;
   updateActiveTab: (tab: string) => void;
   tabs: { name: string; icon: JSX.Element }[];
-  tourData: TourDataType[];
+  tourData: any[];
 }
 
 export const StyledBottomNavbar = styled.nav`
@@ -147,7 +147,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
       <StyledContent>
         {activeSubTitle &&
           activeSubTitle.content.map(
-            ({ name, description, imagePath, price }) =>
+            ({ name, description, imagePath, price }: any) =>
               activeTab === activeSubTitle.subTitle ? (
                 <CardContainer key={name}>
                   <Card

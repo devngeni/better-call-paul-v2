@@ -2,7 +2,6 @@ import { PriceProvider, Theme } from "@/context";
 import { StyledComponentsRegistry } from "@/lib";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { Environment } from "../../constants/environment";
 import { CartProvider } from "@/context/CartContext";
 import { useEffect, useState } from "react";
 import Script from "next/script";
