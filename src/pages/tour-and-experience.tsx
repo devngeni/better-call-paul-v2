@@ -61,11 +61,11 @@ const TourImages = [
 ];
 
 export default function TourAndExperience() {
-  const { getServiceDataByCategory } = useServicesDataContext();
+  const { getServiceDataByCategory, isLoading } = useServicesDataContext();
 
   const TourData = getServiceDataByCategory("TOURS AND EXPERIENCES");
 
-  console.log(TourData, "tourdata");
+  console.log(isLoading, "data loading");
 
   return (
     <Layout
