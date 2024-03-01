@@ -1,6 +1,5 @@
 import { LayoutProps } from "@/types";
 import Head from "next/head";
-import BottomNavigation from "@/components/Navbar/BottomNav";
 
 export default function Layout({
   children,
@@ -10,13 +9,41 @@ export default function Layout({
   title,
   bottomNav,
   imageURl,
-  navigationbar
+  navigationbar,
 }: LayoutProps) {
+  const imageUrl =
+    "https://www.bettercallpaul.world/favicon/android-chrome-192x192.png";
+  const websiteUrl = "https://www.bettercallpaul.world";
+  const defaultTitle =
+    "Better Call Paul - Kenya's Best Homestay Concierge Services";
+  const defaultDescription =
+    "We provide fast, quality and essential services like Tours & travel, Property Management, Food, Private Chef & Meal Prep, Wellness and Grooming, Shopping & grocery runs from the comfort of your Home";
   return (
     <>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#1A3F34" />
+        <meta name="theme-color" content="#ffffff" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           rel="icon"
@@ -26,11 +53,16 @@ export default function Layout({
         <meta property="og:url" content="https://www.bettercallpaul.world" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Better Call Paul" />
+        <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta
           property="og:image"
           content="https://www.bettercallpaul.world/DealsImages/bgLogo.jpg"
           key="ogImage"
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.bettercallpaul.world/DealsImages/bgLogo.jpg"
         />
         <meta property="og:image:alt" content="My custom alt" />
         <meta property="og:locale" content="en_US" />
@@ -39,12 +71,13 @@ export default function Layout({
         <meta name="twitter:image:type" content="<generated>" />
         <meta name="twitter:image:width" content="<generated>" />
         <meta name="twitter:image:height" content="<generated>" />
+        <meta name="twitter:image:alt" content="Better Call Paul" />
       </Head>
-        <nav>{navbar}</nav>
-        <nav>{navigationbar}</nav>
-        <nav>{bottomNav}</nav>
-        <main>{children}</main>
-        <footer>{footer}</footer>
+      <nav>{navbar}</nav>
+      <nav>{navigationbar}</nav>
+      <nav>{bottomNav}</nav>
+      <main>{children}</main>
+      <footer>{footer}</footer>
     </>
   );
 }
