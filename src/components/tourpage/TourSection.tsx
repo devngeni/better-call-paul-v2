@@ -22,7 +22,6 @@ const menuItems = [
   { name: "Out of Town", icon: <Night /> },
 ];
 
-
 const TourPage = ({ mappedData }: { mappedData: TourDataType[] }) => {
   const [currentSelection, setCurrentSelection] = useState(
     "Tours and Experiences"

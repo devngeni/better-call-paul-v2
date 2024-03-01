@@ -1,3 +1,4 @@
+import "react-loading-skeleton/dist/skeleton.css";
 import React, { useState } from "react";
 import styled from "styled-components";
 import Rating from "../commons/Rating";
@@ -5,8 +6,10 @@ import { useCartDispatch } from "@/context/CartContext";
 import { Dustbin } from "../../../public/Icons";
 import { AddIcon, SubtractIcon } from "../../../public/Icons/Add&Subtract";
 import { PriceDisplay } from "../commons/Price";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import SkeletonLoader from "../commons/Skeleton";
 
-const CardContainer = styled.div`
+export const CardContainer = styled.div`
   position: relative;
   width: 100%;
   max-width: 400px;
@@ -38,7 +41,7 @@ const CardContainer = styled.div`
   }
 `;
 
-const CardImageOverlay = styled.div`
+export const CardImageOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +57,7 @@ const CardImageOverlay = styled.div`
   }
 `;
 
-const CardImage = styled.img`
+export const CardImage = styled.img`
   width: 100%;
   height: 200px;
   display: block;
@@ -65,7 +68,7 @@ const CardImage = styled.img`
   }
 `;
 
-const CardInfo = styled.div`
+export const CardInfo = styled.div`
   padding: 16px;
   background: #f8f8f8;
   border-top: 1px solid #ddd;
@@ -79,14 +82,14 @@ const CardInfo = styled.div`
   }
 `;
 
-const CardTitle = styled.h3`
+export const CardTitle = styled.h3`
   font-size: 1.1rem;
   color: #333;
   margin-bottom: 0.5rem;
   font-family: ${(props) => props.theme.fontFace.fonts.bcpFont};
 `;
 
-const CardPrice = styled.p`
+export const CardPrice = styled.p`
   font-size: 1rem;
   color: #333;
   font-weight: bold;
@@ -94,7 +97,15 @@ const CardPrice = styled.p`
   font-family: ${(props) => props.theme.fontFace.fonts.bcpFont};
 `;
 
-const QuickViewButton = styled.button`
+export const CardDescription = styled.p`
+  font-size: 1rem;
+  color: #333;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  font-family: ${(props) => props.theme.fontFace.fonts.bcpFont};
+`;
+
+export const QuickViewButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
@@ -119,7 +130,7 @@ const QuickViewButton = styled.button`
   }
 `;
 
-const AddButton = styled.button`
+export const AddButton = styled.button`
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -139,7 +150,7 @@ const AddButton = styled.button`
     left: 90%;
   }
 `;
-const QuantityControls = styled.div`
+export const QuantityControls = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
@@ -169,14 +180,14 @@ const QuantityControls = styled.div`
   }
 `;
 
-const QuantityButton = styled.button`
+export const QuantityButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
   padding: 5px;
   color: #fff;
 `;
-const RatingIcon = styled.div`
+export const RatingIcon = styled.div`
   position: absolute;
   top: 10px;
   left: 10px;
@@ -199,6 +210,10 @@ interface CardProps {
   handleClick: () => void;
 }
 
+interface IData {
+  data: CardProps;
+}
+
 const Card: React.FC<CardProps> = ({
   id,
   imageSrc,
@@ -207,11 +222,14 @@ const Card: React.FC<CardProps> = ({
   quantity,
   category,
   description,
-  handleClick
+  handleClick,
 }) => {
   const [showQuantityControls, setShowQuantityControls] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const dispatch = useCartDispatch();
+  const { data, isLoading } = useServicesDataContext();
+
+  console.log(isLoading, "from card component");
 
   const handleAddToCart = () => {
     dispatch({
@@ -222,8 +240,8 @@ const Card: React.FC<CardProps> = ({
         price,
         image: imageSrc,
         category,
-        quantity: itemQuantity
-      }
+        quantity: itemQuantity,
+      },
     });
   };
 
@@ -251,7 +269,7 @@ const Card: React.FC<CardProps> = ({
     dispatch({
       type: "UPDATE",
       id,
-      quantity
+      quantity,
     });
   };
 
@@ -264,13 +282,18 @@ const Card: React.FC<CardProps> = ({
     setShowQuantityControls(!showQuantityControls);
   };
 
+  if (isLoading) {
+    <SkeletonLoader />;
+  }
+
   return (
     <CardContainer>
       <CardImageOverlay />
       <CardImage src={imageSrc} alt={productName} />
       <CardInfo>
         <CardTitle>{productName}</CardTitle>
-        <p>{description}</p>
+        <CardDescription>{description}</CardDescription>
+
         <CardPrice>
           <PriceDisplay price={Number(price)} />
         </CardPrice>

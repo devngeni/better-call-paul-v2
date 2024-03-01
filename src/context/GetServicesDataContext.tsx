@@ -33,7 +33,7 @@ export function useServicesDataContext() {
 }
 
 export const ServicesDataProvider = ({ children }: any) => {
-  const { data, error } = useSWR("api/service", fetcher);
+  const { data, error, isLoading } = useSWR("api/service", fetcher);
 
   //filter data by category
   const getServiceDataByCategory = (category: string) => {
@@ -47,7 +47,7 @@ export const ServicesDataProvider = ({ children }: any) => {
       value={{
         getServiceDataByCategory,
         data,
-        isLoading: !error && !data,
+        isLoading,
         isError: error,
       }}
     >
