@@ -119,6 +119,7 @@ const fetchDataBasedOnSlug = async (
       break;
     case "gift-shop":
       const giftShopdata = formattedData(getServiceDataByCategory("GIFTSHOP"));
+      console.log(giftShopdata, "just gift shop...");
 
       data = {
         tabs: [{ name: "Available Gifts" }],
@@ -207,21 +208,23 @@ const fetchDataBasedOnSlug = async (
       };
       break;
     case "house-keeping":
+      const houseKeepingData = getServiceDataByCategory("HOUSEKEEPING");
+
+      console.log(houseKeepingData[0], "data");
       data = {
         tabs: [{ name: "House Keeping" }],
         title: "House Keeping",
         backgroundImage: "/houseKeeping2.png",
         hotelsData: [
           {
-            subTitle: "House Keeping",
+            subTitle: houseKeepingData[0].subTitle,
             content: [
               {
-                content: "House Keeping",
-                hotelDescription:
-                  "We ensure the cleanliness and maintenance of the property is crucial for a positive guest experience. Our commitment to pristine cleaning ensures that our guests feel comfortable and safe during their stay.",
-                image: houseKeep,
-                price: "10",
-                info: "Hello Paul, my space needs a clean up, can I book your housekeeping services?",
+                content: houseKeepingData[0].content[0].name,
+                hotelDescription: houseKeepingData[0].content[0].description,
+                image: houseKeepingData[0].content[0].imagePath,
+                price: houseKeepingData[0].content[0].price,
+                // info: "Hello Paul, my space needs a clean up, can I book your housekeeping services?",
               },
             ],
           },
@@ -372,6 +375,9 @@ const fetchDataBasedOnSlug = async (
       };
       break;
     case "property-management":
+      const propertyMgt = getServiceDataByCategory("PROPERTY MANAGEMENT");
+
+      console.log(propertyMgt[0], "data");
       data = {
         tabs: [{ name: "Property Management" }],
         title: "Property Management",
@@ -379,13 +385,12 @@ const fetchDataBasedOnSlug = async (
         backgroundImage: "/DealsImages/guests.jpg",
         hotelsData: [
           {
-            subTitle: "Property Management",
+            subTitle: propertyMgt[0].subTitle,
             content: [
               {
-                content: "Property Management",
-                hotelDescription:
-                  "We manage all facets of property rental, from seamless reservations to meticulousmaintenance, ensuring every guest experiences the comfort and charm synonymous with name. Each interaction is infused with dedication, expertise, and a touch of Kenyan hospitality that sets us apart.Paul believes in creating sanctuaries rather than just accommodations. By entrusting us withyour investments, you are not only guaranteeing a smooth and professional management experience but also becoming part of a larger narrative - one that speaks of Nairobi’s warmth, authenticity, and resilience.When in doubt about property management, Better Call Paul. Let us redefine your rental experience",
-                image: skybuilding,
+                content: propertyMgt[0].content[0].name,
+                hotelDescription: propertyMgt[0].content[0].description,
+                image: propertyMgt[0].content[0].imagePath,
                 info: "Hello Paul, I need efficient property management. Can you assist me?",
               },
             ],
