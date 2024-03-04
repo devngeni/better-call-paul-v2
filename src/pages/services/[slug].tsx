@@ -34,7 +34,7 @@ import baking from "../../../public/DealsImages/baking.png";
 import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
+import { groupItemsBySubtitle, groupItemsBySubtitleInRentables, groupRentablesSubtitle } from "@/utils/groupSubTitles";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -807,7 +807,7 @@ const fetchDataBasedOnSlug = async (
       };
       break;
     case "rentable":
-      const rentableData = groupItemsBySubtitle(
+      const rentableData = groupRentablesSubtitle(
         getServiceDataByCategory("RENTABLES")
       );
       data = {
@@ -816,19 +816,7 @@ const fetchDataBasedOnSlug = async (
         activeTab: "Tab1",
         text: " The well-being and happiness of your children are our top priorities. We understand the importance of finding a trustworthy and caring partner to assist with the unique needs of your family especially when you are on holiday. ",
         backgroundImage: "/DealsImages/rentable.webp",
-        hotelsData: [
-          {
-            subTitle: rentableData[0].subTitle,
-            content: [
-              {
-                content: rentableData[0].content[0].name,
-                name: rentableData[0].content[0].name,
-                hotelDescription: rentableData[0].content[0].description,
-                image: rentableData[0].content[0].imagePath
-              }
-            ]
-          }
-        ],
+        hotelsData: rentableData,
         faqsTitle: "Inquiries",
         faqsData: [
           {
