@@ -23,36 +23,6 @@ export function groupItemsBySubtitle(items: any[]) {
   return formattedItems;
 }
 
-export function groupItemsBySubtitleInRentables(items: any[]) {
-  const groupedItems: any = {};
-  // Group items by their subTitle
-
-  items &&
-    items.forEach((item: any) => {
-      const subTitle = item.subTitle.trim(); // Remove leading and trailing whitespaces
-
-      if (!groupedItems[subTitle]) {
-        groupedItems[subTitle] = [];
-      }
-      groupedItems[subTitle].push(item.content);
-    });
-
-  // Transform grouped items into desired format
-  const formattedItems = Object.keys(groupedItems).map((subTitle) => {
-    return {
-      subTitle: subTitle,
-      content: groupedItems[subTitle].flat().map((item: any) => ({
-        content: item.content,
-        name: item.name,
-        hotelDescritpion: item.description,
-        image: item.imagePath
-      }))
-    };
-  });
-
-  return formattedItems;
-}
-
 export function groupRentablesSubtitle(items: any[]) {
   const groupedItems: any = {};
   // Group items by their subTitle

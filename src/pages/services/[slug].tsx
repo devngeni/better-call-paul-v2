@@ -36,7 +36,6 @@ import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 import {
   groupItemsBySubtitle,
-  groupItemsBySubtitleInRentables,
   groupRentablesSubtitle
 } from "@/utils/groupSubTitles";
 
