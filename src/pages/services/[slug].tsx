@@ -392,10 +392,9 @@ const fetchDataBasedOnSlug = async (
             subTitle: propertyMgt[0].subTitle,
             content: [
               {
-                content: "Property Management",
-                hotelDescription:
-                  "We manage all facets of property rental, from seamless reservations to meticulousmaintenance, ensuring every guest experiences the comfort and charm synonymous with name. Each interaction is infused with dedication, expertise, and a touch of Kenyan hospitality that sets us apart.Paul believes in creating sanctuaries rather than just accommodations. By entrusting us withyour investments, you are not only guaranteeing a smooth and professional management experience but also becoming part of a larger narrative - one that speaks of Nairobi’s warmth, authenticity, and resilience.When in doubt about property management, Better Call Paul. Let us redefine your rental experience",
-                image: skybuilding,
+                content: propertyMgt[0].content[0].name,
+                hotelDescription: propertyMgt[0].content[0].description,
+                image: propertyMgt[0].content[0].imagePath,
                 info: "Hello Paul, I need efficient property management. Can you assist me?"
               }
             ]
