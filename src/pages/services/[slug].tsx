@@ -34,7 +34,11 @@ import baking from "../../../public/DealsImages/baking.png";
 import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { groupItemsBySubtitle, groupItemsBySubtitleInRentables, groupRentablesSubtitle } from "@/utils/groupSubTitles";
+import {
+  groupItemsBySubtitle,
+  groupItemsBySubtitleInRentables,
+  groupRentablesSubtitle
+} from "@/utils/groupSubTitles";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -543,6 +547,9 @@ const fetchDataBasedOnSlug = async (
       };
       break;
     case "luggage":
+      const luggageData = getServiceDataByCategory("LAUGGAGE SHOP");
+      console.log("luggage data", luggageData);
+
       data = {
         tabs: [{ name: "Luggage Services", icon: "AirTrIcon" }],
         title: "Luggage Storage",
@@ -553,11 +560,10 @@ const fetchDataBasedOnSlug = async (
             subTitle: "Luggage Services",
             content: [
               {
-                content: "Luggage Store",
-                hotelDescription:
-                  "Providing luggage storage proves to be a beneficial service, particularly for visitors who arrive early or leave late. This amenity ensures a secure place for guests to keep their belongings before they check in or after they check out, allowing them to fully enjoy and utilize their time in the city.",
-                image: Luggage,
-                price: "10",
+                content: luggageData[0].content[0].name,
+                hotelDescription: luggageData[0].content[0].description,
+                image: luggageData[0].content[0].imagePath,
+                price: luggageData[0].content[0].price,
                 info: "Hello Paul, I’m traveling soon. Can I store my luggage hassle free?",
                 imageHeight: 250,
                 imageWidth: 500
@@ -813,7 +819,7 @@ const fetchDataBasedOnSlug = async (
       data = {
         tabs: [{ name: "Rentables" }, { name: "Portable Wifi" }],
         title: "Rentable Services",
-        activeTab: "Tab1",
+        activeTab: "Rentables",
         text: " The well-being and happiness of your children are our top priorities. We understand the importance of finding a trustworthy and caring partner to assist with the unique needs of your family especially when you are on holiday. ",
         backgroundImage: "/DealsImages/rentable.webp",
         hotelsData: rentableData,
