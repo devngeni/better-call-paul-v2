@@ -1,22 +1,7 @@
 import { CommonHotel } from "@/components/commons";
 import { GetServerSideProps } from "next";
-import { PrivateChefData } from "@/utils/services-data";
-import Hoodies from "../../../public/GiftshopImages/hoodie.png";
-import TShirt from "../../../public/GiftshopImages/greytshirt7.png";
-import Bottle from "../../../public/GiftshopImages/Aluminum_Metallic_Water_Bottle_Mockup_1.png";
-import Beer from "../../../public/GiftshopImages/vecteezy1.png";
-import Magic from "../../../public/GiftshopImages/b.png";
-import Hat from "../../../public/GiftshopImages/Leone-Hat.png";
-import Cap from "../../../public/GiftshopImages/HatMockup.png";
-import Wrist from "../../../public/GiftshopImages/Wrist.jpg";
-import KeyHolders from "../../../public/GiftshopImages/keyHolders.jpg";
-import Mugs from "../../../public/GiftshopImages/Mugs.jpg";
-import FridgeMagnet from "../../../public/GiftshopImages/LinenMockup.png";
-import Flowers from "../../../public/GiftshopImages/Flowers.webp";
-import Customize from "../../../public/GiftshopImages/khaki-4866.jpg";
 import Chef from "../../../public/DealsImages/chef.png";
 import Prep from "../../../public/DealsImages/detergent.webp";
-import houseKeep from "/public/houseKeeping1.png";
 import Bhajia from "../../../public/DealsImages/bhajia.webp";
 import Jajemelo from "../../../public/DealsImages/jajemelo.webp";
 import Meal from "../../../public/DealsImages/food.png";
@@ -29,12 +14,10 @@ import bicycle from "../../../public/DealsImages/bicycle.png";
 import golf from "../../../public/DealsImages/golf.png";
 import bluetooth from "../../../public/DealsImages/bluetooth.png";
 import Gameconsole from "../../../public/DealsImages/console.png";
-import skybuilding from "../../../public/DealsImages/prop.jpg";
 import baking from "../../../public/DealsImages/baking.png";
 import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -119,7 +102,6 @@ const fetchDataBasedOnSlug = async (
       break;
     case "gift-shop":
       const giftShopdata = formattedData(getServiceDataByCategory("GIFTSHOP"));
-      console.log(giftShopdata, "just gift shop...");
 
       data = {
         tabs: [{ name: "Available Gifts" }],
@@ -377,7 +359,6 @@ const fetchDataBasedOnSlug = async (
     case "property-management":
       const propertyMgt = getServiceDataByCategory("PROPERTY MANAGEMENT");
 
-      console.log(propertyMgt[0], "data");
       data = {
         tabs: [{ name: "Property Management" }],
         title: "Property Management",
