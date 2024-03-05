@@ -22,7 +22,7 @@ import AdsSection from "@/styles/landingPageStyles/Ads";
 import { generateSlug } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface commonContentProps {
   Data: {
