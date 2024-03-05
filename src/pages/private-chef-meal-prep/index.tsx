@@ -26,12 +26,11 @@ import React, { useEffect, useState } from "react";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
-import { get } from "http";
 
 interface CommonContentProps {
   Data: {
-    cardImage: string;
-    cardTitle: string;
+    imagePath: any;
+    name: string;
     description: string;
     whatsAppDraftMsg: string;
     seeMenuBtn: boolean;
@@ -54,8 +53,8 @@ const CommonContent = ({ Data }: CommonContentProps) => {
       {Data?.map((item: any, index: any) => (
         <HotelWrapper itemCount={Data.length} key={item._id}>
           <Hotel
-            src={item.cardImage}
-            content={item.cardTitle}
+            src={item.imagePath}
+            content={item.name}
             description={item.description}
             info={item.whatsAppDraftMsg}
             handleSeeMenuButtonClick={() => handleRoute(item.cardTitle)}
