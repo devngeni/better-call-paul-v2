@@ -13,7 +13,7 @@ import {
 
 export default function SkeletonLoader() {
   return (
-    <CardContainer>
+    <>
       <CardImageOverlay />
       <CardImage>
         <Skeleton width="100%" height="200px" />
@@ -35,6 +35,6 @@ export default function SkeletonLoader() {
           <Skeleton width="120px" height="20px" />
         </RatingIcon>
       </CardInfo>
-    </CardContainer>
+    </>
   );
 }

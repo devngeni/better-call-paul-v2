@@ -225,9 +225,13 @@ const Card: React.FC<CardProps> = ({
   const [showQuantityControls, setShowQuantityControls] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(quantity);
   const dispatch = useCartDispatch();
-  const { isLoading } = useServicesDataContext();
+  const [isLoading, setIsLoading] = useState(true);
 
-  console.log("loading ...", loading);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
 
   const handleAddToCart = () => {
     dispatch({
@@ -282,40 +286,44 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <>
-      <CardContainer>
-        <CardImageOverlay />
-        <CardImage src={imageSrc} alt={productName} />
-        <CardInfo>
-          <CardTitle>{productName}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+      {isLoading ? (
+        <SkeletonLoader />
+      ) : (
+        <CardContainer>
+          <CardImageOverlay />
+          <CardImage src={imageSrc} alt={productName} />
+          <CardInfo>
+            <CardTitle>{productName}</CardTitle>
+            <CardDescription>{description}</CardDescription>
 
-          <CardPrice>
-            <PriceDisplay price={Number(price)} />
-          </CardPrice>
-          <RatingIcon style={{ width: "fit-content" }}>
-            <Rating name="rating" value={4} />
-          </RatingIcon>
-        </CardInfo>
-        <QuickViewButton onClick={handleClick}>Quick view</QuickViewButton>
-        <AddButton onClick={toggleQuantityControls}>+</AddButton>
-        <QuantityControls className={showQuantityControls ? "show" : ""}>
-          <QuantityButton
-            onClick={() => {
-              handleDeleteItem();
-              toggleDelete();
-            }}
-          >
-            <Dustbin />
-          </QuantityButton>
-          <QuantityButton onClick={handleRemoveItem}>
-            <SubtractIcon />
-          </QuantityButton>
-          <span>{itemQuantity}</span>
-          <QuantityButton onClick={() => handleAddItem()}>
-            <AddIcon />
-          </QuantityButton>
-        </QuantityControls>
-      </CardContainer>
+            <CardPrice>
+              <PriceDisplay price={Number(price)} />
+            </CardPrice>
+            <RatingIcon style={{ width: "fit-content" }}>
+              <Rating name="rating" value={4} />
+            </RatingIcon>
+          </CardInfo>
+          <QuickViewButton onClick={handleClick}>Quick view</QuickViewButton>
+          <AddButton onClick={toggleQuantityControls}>+</AddButton>
+          <QuantityControls className={showQuantityControls ? "show" : ""}>
+            <QuantityButton
+              onClick={() => {
+                handleDeleteItem();
+                toggleDelete();
+              }}
+            >
+              <Dustbin />
+            </QuantityButton>
+            <QuantityButton onClick={handleRemoveItem}>
+              <SubtractIcon />
+            </QuantityButton>
+            <span>{itemQuantity}</span>
+            <QuantityButton onClick={() => handleAddItem()}>
+              <AddIcon />
+            </QuantityButton>
+          </QuantityControls>
+        </CardContainer>
+      )}
     </>
   );
 };
