@@ -205,7 +205,7 @@ interface CardProps {
   description?: string;
   quantity: number;
   category: string;
-  onAddToCart?: () => void;
+  onAddToCart: () => void;
   isLoading: boolean;
   handleClick: () => void;
   loading: boolean;
@@ -221,6 +221,7 @@ const Card: React.FC<CardProps> = ({
   description,
   handleClick,
   onAddToCart,
+  loading,
 }) => {
   const [showQuantityControls, setShowQuantityControls] = useState(false);
   const [itemQuantity, setItemQuantity] = useState(quantity);
