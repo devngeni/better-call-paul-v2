@@ -22,28 +22,37 @@ import AdsSection from "@/styles/landingPageStyles/Ads";
 import { generateSlug } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
+import { CATEGORIES } from "../../../constants";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import { get } from "http";
 
-interface commonContentProps {
+interface CommonContentProps {
   Data: {
-    cardImage: any;
+    cardImage: string;
     cardTitle: string;
     description: string;
     whatsAppDraftMsg: string;
+    seeMenuBtn: boolean;
+    seeWhatsappBtn: boolean;
+    WhatsAppBtnText?: string;
     showImage?: boolean;
+    adImage?: string;
   }[];
 }
 
-const CommonContent = ({ Data }: commonContentProps) => {
+const CommonContent = ({ Data }: CommonContentProps) => {
   const router = useRouter();
   const handleRoute = (slug: string) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
+  console.log("Data", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
-        <HotelWrapper itemCount={Data.length} key={index}>
+        <HotelWrapper itemCount={Data.length} key={item._id}>
           <Hotel
             src={item.cardImage}
             content={item.cardTitle}
@@ -83,10 +92,39 @@ const CommonContent = ({ Data }: commonContentProps) => {
 const PrivateChefMealPrep = () => {
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("private-chef & meal-prep");
-  const [tabs] = useState(["Restaurant", "Private Chef & Meal Prep"]);
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [tabs, setTabs] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [groupedData, setGroupedData] = useState<{ [key: string]: any }>({});
 
-  const getActiveTabAndPath = (tab: any) => {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const privateChefData = getServiceDataByCategory(
+        CATEGORIES.restaurantAndChef
+      );
+
+      const groupedData: any = groupItemsBySubtitle(privateChefData);
+      setGroupedData(groupedData);
+
+      console.log("groupedData", groupedData);
+
+      // Set tabs based on the `subTitle` key in each object of groupedData
+      const tabKeys = Object.keys(groupedData).map(
+        (key) => groupedData[key].subTitle
+      );
+      setTabs(tabKeys);
+
+      // If activeTab is not set, set it to the first tab
+      if (activeTab === null && tabKeys.length > 0) {
+        setActiveTab(tabKeys[0]);
+        console.log("activeTab", tabKeys[0]); // Log the active tab for debugging
+      }
+    };
+    fetchData();
+  }, [getServiceDataByCategory, activeTab]);
+
+  const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
     setActiveTab(tab);
   };
@@ -126,8 +164,14 @@ const PrivateChefMealPrep = () => {
       </StyledBottomNavbar>
       <AdsSection />
 
-      {activeTab === tabs[0] && <CommonContent Data={RestaurandData} />}
-      {activeTab === tabs[1] && <CommonContent Data={PrivateChefData} />}
+      {/* Render content based on activeTab */}
+      {activeTab && (
+        <CommonContent
+          Data={
+            groupedData.find((obj: any) => obj.subTitle === activeTab)?.content || []
+          }
+        />
+      )}
 
       <CommonContainer>
         <CommonWrapper>
@@ -155,7 +199,7 @@ export default PrivateChefMealPrep;
 let whatsAppDraftMsg =
   "Hello Paul, I’m craving a special dining experience. Can I hire a private chef or explore meal prep options?";
 
-const RestaurandData = [
+const RestaurantData: any[] = [
   {
     cardImage: "/privateChefImages/kosewe.jpg",
     cardTitle: "K'Osewe Ranalo Foods",
