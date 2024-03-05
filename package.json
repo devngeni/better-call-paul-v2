@@ -26,6 +26,7 @@
     "react-loading-skeleton": "^3.4.0",
     "react-whatsapp": "^0.3.0",
     "react-whatsapp-widget": "^2.2.0",
+    "sharp": "^0.33.2",
     "styled-components": "^6.1.1",
     "swr": "^2.2.5"
   },

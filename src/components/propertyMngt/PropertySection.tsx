@@ -4,7 +4,6 @@ import { AirTrIcon, ChaufferIcon, HireCarIcon } from "../../../public/Icons";
 import TopNavbar from "../travelpage/TopNavbar";
 import HeroSection from "../travelpage/HeroSection";
 import BottomNavbar from "../travelpage/BottomNavbar";
-import { TourData } from "../tourpage/TourData";
 
 const menuItems = [
   { name: "Airport Transfer", icon: <AirTrIcon /> },
@@ -12,7 +11,7 @@ const menuItems = [
   { name: "Chauffeur", icon: <ChaufferIcon /> },
 ];
 
-const PropertySection = () => {
+const PropertySection = ({ propertyData }: any) => {
   const [currentSelection, setCurrentSelection] = useState("Services");
   const router = useRouter();
   const handleBack = () => {
@@ -38,7 +37,7 @@ const PropertySection = () => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        tourData={TourData}
+        tourData={propertyData}
       />
     </>
   );
