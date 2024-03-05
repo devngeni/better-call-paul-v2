@@ -122,6 +122,8 @@ export default function SlugPage({ data }: any) {
                 quantity: 1,
               })}
               handleClick={handleClick}
+              isLoading={true}
+              loading={true}
             />
           </CardContainer>
         ))}

@@ -6,6 +6,9 @@ import { generateSlug } from "@/utils";
 import Card from "./CardComponent";
 import { useCartDispatch } from "@/context/CartContext";
 import AdsSection from "@/styles/landingPageStyles/Ads";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import Skeleton from "react-loading-skeleton";
+import SkeletonLoader from "../commons/Skeleton";
 
 interface BottomNavbarProps {
   activeTab: string;
@@ -70,6 +73,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
   tourData,
 }) => {
   const [defaultTabClicked, setDefaultTabClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -128,6 +132,17 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
     }
   }, [defaultTabClicked, tabs, handleTabClick]);
 
+  const { isLoading } = useServicesDataContext();
+
+  useEffect(() => {
+    (() => {
+      setLoading(isLoading);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    })();
+  }, []);
+
   return (
     <>
       <StyledBottomNavbar>
@@ -151,6 +166,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
               activeTab === activeSubTitle.subTitle ? (
                 <CardContainer key={name}>
                   <Card
+                    loading={loading}
                     productName={name}
                     description={description}
                     imageSrc={imagePath}
@@ -158,6 +174,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
                     quantity={0}
                     category={activeSubTitle.subTitle}
                     id={Math.random()}
+                    isLoading={isLoading}
                     handleClick={() => {
                       handleTabClick(activeTab);
                       handleRoute(generateSlug(name));

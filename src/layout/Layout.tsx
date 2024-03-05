@@ -9,7 +9,7 @@ export default function Layout({
   title,
   bottomNav,
   imageURl,
-  navigationbar,
+  navigationbar
 }: LayoutProps) {
   const imageUrl =
     "https://www.bettercallpaul.world/favicon/android-chrome-192x192.png";
@@ -40,9 +40,9 @@ export default function Layout({
           sizes="16x16"
           href="/favicon/favicon-16x16.png"
         />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
         <meta name="msapplication-TileColor" content="#1A3F34" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#00453a" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link

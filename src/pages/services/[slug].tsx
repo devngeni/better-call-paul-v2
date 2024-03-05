@@ -7,7 +7,9 @@ import Jajemelo from "../../../public/DealsImages/jajemelo.webp";
 import Meal from "../../../public/DealsImages/food.png";
 import { AirTrIcon } from "../../../public/Icons";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import { groupRentablesSubtitle } from "@/utils/groupSubTitles";
+import {
+  groupRentablesSubtitle
+} from "@/utils/groupSubTitles";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
