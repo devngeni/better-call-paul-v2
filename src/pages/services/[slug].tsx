@@ -35,7 +35,6 @@ import feeding from "../../../public/DealsImages/feeding.png";
 import PW from "../../../public/DealsImages/PW.png";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 import {
-  groupItemsBySubtitle,
   groupRentablesSubtitle
 } from "@/utils/groupSubTitles";
 
