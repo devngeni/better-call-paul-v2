@@ -188,3 +188,6 @@ const CommonHotel: React.FC<commonHotelProps> = ({
 };
 
 export default CommonHotel;
+
+
+
