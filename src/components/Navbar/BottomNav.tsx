@@ -1,7 +1,7 @@
 import { NavProps } from "@/types";
 import React from "react";
 import styled from "styled-components";
-import { Cart, Home, List, Profile } from "../../../public/Icons";
+import { Home,  Profile } from "../../../public/Icons";
 import { css } from "styled-components";
 import { useRouter } from "next/router";
 import Link from "next/link";

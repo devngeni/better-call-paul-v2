@@ -1,10 +1,9 @@
 export function groupItemsBySubtitle(items: any[]) {
   const groupedItems: any = {};
-  // Group items by their subTitle
 
   items &&
     items.forEach((item: any) => {
-      const subTitle = item.subTitle.trim(); // Remove leading and trailing whitespaces
+      const subTitle = item.subTitle.trim(); 
 
       if (!groupedItems[subTitle]) {
         groupedItems[subTitle] = [];
@@ -12,7 +11,6 @@ export function groupItemsBySubtitle(items: any[]) {
       groupedItems[subTitle].push(item.content);
     });
 
-  // Transform grouped items into desired format
   const formattedItems = Object.keys(groupedItems).map((subTitle) => {
     return {
       subTitle: subTitle,
@@ -25,10 +23,9 @@ export function groupItemsBySubtitle(items: any[]) {
 
 export function groupRentablesSubtitle(items: any[]) {
   const groupedItems: any = {};
-  // Group items by their subTitle
   items &&
     items.forEach((item: any) => {
-      const subTitle = item.subTitle.trim(); // Remove leading and trailing whitespaces
+      const subTitle = item.subTitle.trim();
       if (!groupedItems[subTitle]) {
         groupedItems[subTitle] = [];
       }
@@ -39,7 +36,6 @@ export function groupRentablesSubtitle(items: any[]) {
         image: item.content[0].imagePath
       });
     });
-  // Transform grouped items into desired format
   const formattedItems = Object.keys(groupedItems).map((subTitle) => {
     return {
       subTitle: subTitle,

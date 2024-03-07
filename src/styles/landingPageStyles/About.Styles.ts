@@ -134,7 +134,6 @@ export const ImageCard = styled("div")((props: any) => ({
 
   borderRadius: "50px",
   color: "#FFF",
-  // fontFamily: props.theme.fonts.$segoeUI,
   fontStyle: "normal",
   lineHeight: "normal",
   fontWeight: "700",

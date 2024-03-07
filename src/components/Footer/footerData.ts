@@ -1,12 +1,10 @@
 import { SectionType } from "@/types";
-import Link from "next/link";
 
 
 export const FooterLinksList: SectionType[] = [
     {
       title: "Company",
       links: [
-        // { name: "About Us", url: "https://docs.google.com/document/d/1MxFGCJw-ScVInlSpQgSo96XN83gosOOIYSi65mNd0gg/edit" , },
         { name: "Contact", url: "https://api.whatsapp.com/send?phone=254794701568" },
         {name:"Host",url:"host"}
       ],

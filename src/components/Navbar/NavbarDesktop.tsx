@@ -28,30 +28,6 @@ const Logo = styled.div`
   }
 `;
 
-const NavItems = styled.div`
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-`;
-
-const NavItem = styled.div<{ $isActive: boolean }>`
-  a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: ${({ $isActive }) => ($isActive ? "600" : "400")};
-    padding: 0.5rem 0;
-    border-bottom: 3px solid transparent;
-    transition: border-color 0.3s;
-    font-family: ${(props) => props.theme.fontFace.fonts.bcpFont};
-    &:hover,
-    &:focus {
-      border-color: #ffa500;
-    }
-  }
-`;
 
 const SearchBar = styled.input`
   display: inline-flex;

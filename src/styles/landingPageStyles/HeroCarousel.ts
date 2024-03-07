@@ -1,21 +1,4 @@
 import styled, { keyframes } from "styled-components";
-const expand = keyframes`
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(2.5); // Scale as needed to fill the container
-  }
-`;
-
-const shrink = keyframes`
-  from {
-    transform: scale(2.5);
-  }
-  to {
-    transform: scale(1);
-  }
-`;
 export const HeroCardContainer = styled.div`
   position: relative;
   margin-top: 88px;

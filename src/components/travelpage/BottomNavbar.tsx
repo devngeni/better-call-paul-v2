@@ -7,8 +7,7 @@ import Card from "./CardComponent";
 import { useCartDispatch } from "@/context/CartContext";
 import AdsSection from "@/styles/landingPageStyles/Ads";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
-import Skeleton from "react-loading-skeleton";
-import SkeletonLoader from "../commons/Skeleton";
+
 
 interface BottomNavbarProps {
   activeTab: string;

@@ -8,7 +8,6 @@ import {
 import React from "react";
 import Chef from "../../../public/DealsImages/chef-working.png";
 import Background from "@/styles/commons/bgOptimized";
-import link from "next/link";
 import Link from "next/link";
 
 const ChefSection = () => {

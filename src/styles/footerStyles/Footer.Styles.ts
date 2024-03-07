@@ -58,8 +58,6 @@ export const FooterLinksContainer = styled(FlexWrapper)`
 
   @media (max-width: 768px) {
     flex-direction: row;
-    /* flex-wrap: wrap; 
-   justify-content: space-between; */
     gap:50px;
     align-items: flex-start;
     width: 100%;

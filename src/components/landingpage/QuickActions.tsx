@@ -1,11 +1,9 @@
-// File: QuickActions.tsx
 
 import React from "react";
 import styled from "styled-components";
 import FullDay from "../../../public/Icons/FullDay";
 import { ChaufferIcon, Profile } from "../../../public/Icons";
 
-// Styled-components
 const QuickActionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,14 +64,12 @@ const ActionTitle = styled.span`
   line-height: 1rem;
 `;
 
-// Interface for action items
 interface ActionItem {
   title: string;
   description: string;
   icons: React.ReactNode;
 }
 
-// QuickActions Component
 const QuickActions: React.FC = () => {
   const actions: ActionItem[] = [
     {
