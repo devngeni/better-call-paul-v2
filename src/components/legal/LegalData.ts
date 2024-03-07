@@ -1,4 +1,4 @@
-import { FAQData } from "@/types";
+// import { FAQData } from "@/types";
 
 export const termsData = {
   title: "Terms and Conditions for Better Call Paul",

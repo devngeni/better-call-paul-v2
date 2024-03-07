@@ -37,7 +37,6 @@ const GroomSection = ({ wellnessData }: any) => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        //tourData={GroomData}
         tourData={wellnessData}
       />
     </>

@@ -5,7 +5,6 @@ import { useCartDispatch } from "@/context/CartContext";
 import { Dustbin } from "../../../public/Icons";
 import { AddIcon, SubtractIcon } from "../../../public/Icons/Add&Subtract";
 import { PriceDisplay } from "../commons/Price";
-import { useServicesDataContext } from "@/context/GetServicesDataContext";
 import SkeletonLoader from "../commons/Skeleton";
 
 export const CardContainer = styled.div`
