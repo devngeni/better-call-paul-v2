@@ -14,6 +14,7 @@ import {
 } from "@/types/datatypes";
 import { useRouter } from "next/router";
 import { BookSection } from "../commons";
+import { useEffect, useState } from "react";
 export interface TripsDetailsPageProps {
   introSectionTitle: string;
   introSectionContent?: string;
@@ -28,6 +29,7 @@ export interface TripsDetailsPageProps {
   text: string;
   book: string;
   info?: string;
+  imagePath: any
 }
 
 export default function TripsDetailsPage({
@@ -43,15 +45,15 @@ export default function TripsDetailsPage({
   price,
   text,
   book,
-  info
+  info,
+  imagePath,
 }: TripsDetailsPageProps) {
   const route = useRouter();
   const currentPath = route.asPath;
   const pathParts = currentPath.split("/");
   const lastPathSegment = pathParts[pathParts.length - 1];
 
-  console.log(lastPathSegment);
-  return (
+     return (
     <Layout
       title="Trips details"
       description="Out of Africa Experience"
@@ -62,7 +64,7 @@ export default function TripsDetailsPage({
         content={introSectionContent}
         introData={introData}
       />
-      <Swiper items={swipperData} />
+      <Swiper items={swipperData} imagePath = {imagePath} />
       <ProductDetails title={productDetailsTitle} text={productDetailsText} />
       <BookSection price={price} text={text} book={book} info={info} />
       <TimeSection timelines={timelines} />

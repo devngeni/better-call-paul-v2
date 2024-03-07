@@ -49,6 +49,7 @@ const ITemImage = styled.div`
 `;
 interface SwiperProps {
   items: { id: number; imageUrl: string; width?: number; height?: number }[];
+  imagePath: any
 }
 const DotsContainer = styled.div`
   text-align: center;
@@ -66,7 +67,7 @@ const Dot = styled.span<{ $active: boolean }>`
   transition: background-color 0.6s ease;
 `;
 
-const Swiper: React.FC<SwiperProps> = ({ items }) => {
+const Swiper: React.FC<SwiperProps> = ({ items, imagePath }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -103,19 +104,19 @@ const Swiper: React.FC<SwiperProps> = ({ items }) => {
   return (
     <SwiperWrapper>
       <SwiperContainer ref={carouselRef}>
-        {items?.map((item, index) => (
-          <SwiperItem key={item.id} onClick={() => setActiveIndex(index)}>
+        {/* {items?.map((item, index) => ( */}
+          <SwiperItem  >
             <ITemImage>
               <Image
-                src={item.imageUrl}
+                src={imagePath || ''}
                 alt="Swiper item"
                 objectFit="contain"
-                width={item.width || 360}
-                height={item.height || 196}
+                width={ 360}
+                height={ 196}
               />
             </ITemImage>
           </SwiperItem>
-        ))}
+        
       </SwiperContainer>
       <DotsContainer>
         {items?.map((item, index) => (
