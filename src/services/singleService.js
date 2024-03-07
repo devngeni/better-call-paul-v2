@@ -27,13 +27,10 @@ class SingleService {
 
     }else {
         let imagePath = "" 
-        const response = await fetch(`${this.baseUrl}/api/service/category/DRINKS`) 
+        const response = await fetch(`${this.baseUrl}/api/service/category/WELLNESS AND GROOMING`) 
         const data = await response.json()
-        const drinks = data.category  
-        const slugTrimmed = slug.trim()
-        console.log(slugTrimmed, 'trimmed')
-        const found = drinks.filter((item) => item.content[0].name === slugTrimmed)
-        console.log(found, 'found')
+        const wellness = data.category  
+        const found = wellness.filter((item) => item.content[0].name === slug)
       
        if (found) {
         imagePath = found[0].content[0].imagePath
@@ -42,9 +39,7 @@ class SingleService {
        return null
 
     }
-    }
-
-   
+    }   
 }
 
 
