@@ -37,6 +37,8 @@ import BottomNavigation from "@/components/Navbar/BottomNav";
 import {
   groupRentablesSubtitle
 } from "@/utils/groupSubTitles";
+import Skeleton from "react-loading-skeleton";
+import SkeletonLoader from "@/components/commons/Skeleton";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -121,7 +123,6 @@ const fetchDataBasedOnSlug = async (
       break;
     case "gift-shop":
       const giftShopdata = formattedData(getServiceDataByCategory("GIFTSHOP"));
-      console.log(giftShopdata, "just gift shop...");
 
       data = {
         tabs: [{ name: "Available Gifts" }],
@@ -212,7 +213,6 @@ const fetchDataBasedOnSlug = async (
     case "house-keeping":
       const houseKeepingData = getServiceDataByCategory("HOUSEKEEPING");
 
-      console.log(houseKeepingData[0], "data");
       data = {
         tabs: [{ name: "House Keeping" }],
         title: "House Keeping",
@@ -936,7 +936,7 @@ export default function SlugPage({ data, fetchedData }: any) {
   // console.log("fetchedData", fetchedData);
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div><SkeletonLoader /></div>;
   }
 
   return (
@@ -953,7 +953,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(`${process.env.BASE_URL}/api/service`);
 
   const fetchedData = await res.json();
-  console.log("data", fetchedData);
 
   const getServiceDataByCategory = (category: string) => {
     if (fetchedData) {

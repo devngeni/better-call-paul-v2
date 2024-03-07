@@ -2,6 +2,8 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import TripsDetailsPage from "@/components/tourpage/tour-main-page";
 import { Layout } from "@/layout";
+import { singleService } from "@/services/singleService";
+
 
 import {
   NairobiSafariExperienceData,
@@ -84,7 +86,9 @@ import {
   JackDanielsData,
   MonkeyShoulderData,
 } from "@/utils/our-services-data";
+import { reverseSlug } from "@/utils/reverseSlug";
 import { GetServerSideProps } from "next";
+import { useEffect, useState } from "react";
 
 const fetchDataBasedOnSlug = async (slug: string) => {
   let data: any = {};
@@ -338,7 +342,9 @@ const fetchDataBasedOnSlug = async (slug: string) => {
   return data;
 };
 
-export default function SlugPage({ data }: any) {
+export default function SlugPage({ data, swippedData }: any) {
+  
+
   return (
     <Layout
       title="Tour Concierge & Services"
@@ -346,7 +352,7 @@ export default function SlugPage({ data }: any) {
       navbar={<Navbar />}
       footer={<Footer />}
     >
-      <TripsDetailsPage {...data} />
+      <TripsDetailsPage {...data} imagePath = {swippedData} />
     </Layout>
   );
 }
@@ -354,11 +360,15 @@ export default function SlugPage({ data }: any) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
 
+  const slugReversal = reverseSlug(slug as string);
   const data = await fetchDataBasedOnSlug(slug as string);
+
+  const swippedData = await singleService.fetchServiceDetails(slugReversal)
 
   return {
     props: {
       data,
+      swippedData
     },
   };
 };
