@@ -10,6 +10,8 @@ import BottomNavigation from "@/components/Navbar/BottomNav";
 import {
   groupRentablesSubtitle
 } from "@/utils/groupSubTitles";
+import Skeleton from "react-loading-skeleton";
+import SkeletonLoader from "@/components/commons/Skeleton";
 
 export const getIconComponent = (iconName: any) => {
   switch (iconName) {
@@ -838,7 +840,7 @@ export function formattedData(dataItems: any[]) {
 
 export default function SlugPage({ data, fetchedData }: any) {
   if (!data) {
-    return <div>Loading...</div>;
+    return <div><SkeletonLoader /></div>;
   }
 
   return (

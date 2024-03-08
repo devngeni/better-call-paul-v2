@@ -18,7 +18,7 @@ export const AxiosData = {
     },
   ],
   swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Axios.webp" },
+    { id: 1, imageUrl: "/DealsImages/car.jpeg" },
     { id: 2, imageUrl: "/DealsImages/Axios.webp" },
     { id: 3, imageUrl: "/DealsImages/Axios.webp" },
   ],

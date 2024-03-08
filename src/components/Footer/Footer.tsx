@@ -30,10 +30,6 @@ import {
 } from "@/styles/footerStyles";
 import { FooterLinksList } from "./footerData";
 
-interface SocialLink {
-  icon: React.ReactNode;
-  url: string;
-}
 
 const socialLinks = [
   {

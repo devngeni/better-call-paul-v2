@@ -16,7 +16,7 @@ export default function SkeletonLoader() {
     <>
       <CardImageOverlay />
       <CardImage>
-        <Skeleton width="100%" height="200px" />
+        <Skeleton width="100%" height="330px" />
       </CardImage>
       <CardInfo>
         <CardTitle>

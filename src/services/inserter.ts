@@ -8,7 +8,7 @@ export class Service {
   }
 
   async post() {
-    if (!this.bodyData) throw new Error("body can't be empty"); // will take care of validations later
+    if (!this.bodyData) throw new Error("body can't be empty");
 
     const newService = new ServiceItem({
       ...this.bodyData,

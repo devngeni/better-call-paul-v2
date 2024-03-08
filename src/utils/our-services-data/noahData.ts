@@ -1,3 +1,6 @@
+import { singleService  } from '../../services/singleService'
+
+
 export const ToyotaNoahData = {
   introSectionTitle: "Toyota Noah",
   introSectionContent:
@@ -18,10 +21,11 @@ export const ToyotaNoahData = {
       price: 100,
     },
   ],
+  
   swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Noah.webp" },
-    { id: 2, imageUrl: "/DealsImages/Noah.webp" },
-    { id: 3, imageUrl: "/DealsImages/Noah.webp" },
+    // { id: 1, imageUrl: "/DealsImages/Noah.webp" },
+    // { id: 2, imageUrl: "/DealsImages/Noah.webp" },
+    // { id: 3, imageUrl: "/DealsImages/Noah.webp" },
   ],
   productDetailsTitle: "About the Car hire service",
   productDetailsText:

@@ -1,7 +1,6 @@
 import React from "react";
 import { ProductDetailsContainer } from "@/styles/commons";
 import { Text, Title } from "../commons";
-import { Montserrat } from "next/font/google";
 interface DetailsProps {
   title: string;
   text: string;
