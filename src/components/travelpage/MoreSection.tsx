@@ -27,7 +27,6 @@ const SectionContainer = styled.section`
 `;
 
 const SectionTitle = styled.h2`
-  // font-size: 42px;
   font-size: calc(1.5rem + ((1vw - 3.6px) * 0.5128));
   font-weight: 700;
   margin-left: 20px;

@@ -1,5 +1,4 @@
 import {
-  CardContainer,
   CardContent,
   CardImage,
   CardNavigation,

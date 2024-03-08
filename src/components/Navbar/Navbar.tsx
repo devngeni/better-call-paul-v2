@@ -15,12 +15,6 @@ const fadeIn = keyframes`
   to { opacity: 1; }
 `;
 
-const tapEffect = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-`;
-
 const Title = styled.h1`
   color: #ffa500;
   font-size: 20px;

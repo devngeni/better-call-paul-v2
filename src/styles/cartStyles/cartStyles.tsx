@@ -129,7 +129,6 @@ export const ProductCard = styled.div`
 export const ProductImage = styled.div`
   width: 130px;
   height: 130px;
-  /* margin-right: 15px; */
   border-radius: 15px;
 
   img {

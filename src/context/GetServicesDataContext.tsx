@@ -12,7 +12,6 @@ export const ServicesDataContext = createContext(
   {} as ServicesDataContextProps
 );
 
-// Define a fetcher function
 const fetcher = async (url: string) => {
   const response = await fetch(url);
   if (!response.ok) {
@@ -35,7 +34,6 @@ export function useServicesDataContext() {
 export const ServicesDataProvider = ({ children }: any) => {
   const { data, error, isLoading } = useSWR("api/service", fetcher);
 
-  //filter data by category
   const getServiceDataByCategory = (category: string) => {
     if (data) {
       return data.services.filter((item: any) => item.category === category);
