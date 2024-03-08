@@ -1,5 +1,3 @@
-
-
 class SingleService {
     constructor(baseUrl) {
         this.baseUrl = baseUrl
@@ -58,6 +56,29 @@ class SingleService {
       }
        return null
 
+    }else if(
+      slug === "Nairobi Safari Experience"
+      ||slug === "Nairobi Safari Experience"
+      ||slug === "Nairobi Heritage Experience"
+      ||slug === "Nairobi Museum Experience"
+      ||slug === "Nairobi Museum Experience"
+      ||slug === "Out Of Africa Experience"
+      ||slug === "Nairobi Cultural & Wildlife Experience"
+      ||slug === "Out Of Town Experience"
+    ){
+
+        let imagePath = "" 
+        const response = await fetch(`${this.baseUrl}/api/service/category/TOURS AND EXPERIENCES`) 
+        const data = await response.json()
+        const wellness = data.category  
+        const found = wellness.filter((item) => item.content[0].name === slug)
+      
+       if (found) {
+        imagePath = found[0].content[0].imagePath
+        return imagePath 
+      }
+       return null
+
     }else {
 
         let imagePath = "" 
@@ -75,7 +96,6 @@ class SingleService {
     }
   }   
 }
-
 
 const singleService = new SingleService('http://localhost:3000')
 
