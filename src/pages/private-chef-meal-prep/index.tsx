@@ -103,6 +103,8 @@ const PrivateChefMealPrep = () => {
         CATEGORIES.restaurantAndChef
       );
 
+      console.log("privateChef", privateChefData)
+
       const groupedData: any = groupItemsBySubtitle(privateChefData);
       setGroupedData(groupedData);
 
