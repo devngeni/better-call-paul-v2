@@ -79,7 +79,7 @@ export class Service {
   async getByCategoryAndSubTitle(keyword: any): Promise<boolean | any[]> {
     try {
       const category = await ServiceItem.find({
-        category: keyword,
+        $or: [{ category: keyword }, { subTitle: keyword }],
       });
 
       if (!category) {
