@@ -2,19 +2,13 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IServiceProvider extends Document {
-  title: string
-  name: string
+  title: string 
   image: string;
   description: string;
 }
 
 const ServiceProviderSchema: Schema = new Schema<IServiceProvider>({
     title: {
-        type: String,
-        required: true
-    },
-
-    name: {
         type: String,
         required: true
     },

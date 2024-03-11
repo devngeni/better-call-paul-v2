@@ -41,7 +41,7 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   },
   subTitle: { type: Schema.Types.String, required: true },
   tag: { type: Schema.Types.String },
-  //serviceProvider: { type: Schema.Types.String },
+  serviceProvider: { type: Schema.Types.String },
   service_id: {
     type: Schema.Types.ObjectId,
     ref: 'ServiceProvider'
