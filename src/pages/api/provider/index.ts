@@ -15,7 +15,7 @@ export default async function handler(
       if (providerItems.length > 0) {
 
       return res.status(200).json({
-        message: "Provider",
+        message: "Found service providers",
         data: providerItems
       });
 
@@ -23,9 +23,10 @@ export default async function handler(
         return res.json({message: "No providers found", data: []})
       }
     } else if (req.method === "POST") {
-      const newServiceProvider = new ServiceProviderModel({
-        
-      })
+      if (!req.body) return 
+      const newServiceProvider = new ServiceProviderModel(req.body)
+      await newServiceProvider.save()
+      return res.status(201).json({success: true, data: newServiceProvider, message: "Saved service providers" })
     } else {
       res.status(405).json({success: false, message: "Method Not Allowed" });
     }
