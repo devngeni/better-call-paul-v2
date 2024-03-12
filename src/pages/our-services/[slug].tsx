@@ -139,19 +139,19 @@ const fetchDataBasedOnSlug = async (slug: string) => {
     case "airport-transfer-services":
       data = { ...AirTransportData };
       break;
-    case "sweedish-massage-90-minutes":
+    case "sweedish-massage":
       data = { ...SwedishMassageData };
       break;
-    case "couple-massage-90-minutes":
+    case "couple-massage":
       data = { ...CoupleMassageData };
       break;
-    case "face-&-scalp-massage-30-minutes":
+    case "face-&-scalp-massage":
       data = { ...FacialScalpData };
       break;
-    case "foot-pressure-massage-30-minutes":
+    case "foot-pressure-massage":
       data = { ...FootMassageData };
       break;
-    case "back-of-legs,-neck-&-shoulder-massage-45-minutes":
+    case "back-of-legs-neck-&-shoulder-massage":
       data = { ...BackMassageData };
       break;
     case "haircut-inclusive-wash":
