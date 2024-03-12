@@ -1,16 +1,10 @@
 import { CommonHotel } from "@/components/commons";
 import { GetServerSideProps } from "next";
-import Chef from "../../../public/DealsImages/chef.png";
-import Prep from "../../../public/DealsImages/detergent.webp";
-import Bhajia from "../../../public/DealsImages/bhajia.webp";
-import Jajemelo from "../../../public/DealsImages/jajemelo.webp";
-import Meal from "../../../public/DealsImages/food.png";
 import { AirTrIcon } from "../../../public/Icons";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 import {
   groupRentablesSubtitle
 } from "@/utils/groupSubTitles";
-import Skeleton from "react-loading-skeleton";
 import SkeletonLoader from "@/components/commons/Skeleton";
 
 export const getIconComponent = (iconName: any) => {
@@ -717,7 +711,6 @@ const fetchDataBasedOnSlug = async (
         getServiceDataByCategory("RENTABLES")
       );
 
-      console.log("rentableData", rentableData);
 
       data = {
         tabs: [{ name: rentableData[0].subTitle }, { name: rentableData[1].subTitle }],
@@ -853,10 +846,17 @@ export default function SlugPage({ data, fetchedData }: any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
-
+  console.log("slug", slug)
+  
   const res = await fetch(`${process.env.BASE_URL}/api/service`);
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
   const fetchedData = await res.json();
+
+  console.log("data", fetchedData);
 
   const getServiceDataByCategory = (category: string) => {
     if (fetchedData) {

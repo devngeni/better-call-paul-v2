@@ -26,15 +26,18 @@ import React, { useEffect, useState } from "react";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import ServiceProviderModel, {
+  IServiceProvider,
+} from "../../../models/ServiceProvider.model";
 
 interface CommonContentProps {
   Data: {
-    imagePath: any;
+    imagePath: string;
     name: string;
     description: string;
     whatsAppDraftMsg: string;
-    seeMenuBtn: boolean;
-    seeWhatsappBtn: boolean;
+    seeMenuBtn?: boolean;
+    seeWhatsappBtn?: boolean;
     WhatsAppBtnText?: string;
     showImage?: boolean;
     adImage?: string;
@@ -93,6 +96,7 @@ const PrivateChefMealPrep = () => {
   const [currentPath, setCurrentPath] = useState("private-chef & meal-prep");
   const [tabs, setTabs] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [serviceProviders, setServiceProviders] = useState<string[]>([]);
   const [groupedData, setGroupedData] = useState<{ [key: string]: any }>({});
 
   const { getServiceDataByCategory } = useServicesDataContext();
@@ -103,12 +107,20 @@ const PrivateChefMealPrep = () => {
         CATEGORIES.restaurantAndChef
       );
 
-      console.log("privateChef", privateChefData)
+      console.log("privateChef", privateChefData);
+
+      // Extracting unique service providers
+      const serviceProviderSet = new Set(
+        privateChefData.map((data: any) => data.serviceProvider)
+      );
+      const serviceProviderList: any = Array.from(serviceProviderSet);
+      console.log("serviceProviderList", serviceProviderList);
+      setServiceProviders(serviceProviderList);
 
       const groupedData: any = groupItemsBySubtitle(privateChefData);
       setGroupedData(groupedData);
 
-      console.log("groupedData", groupedData);
+      // console.log("groupedData", groupedData);
 
       // Set tabs based on the `subTitle` key in each object of groupedData
       const tabKeys = Object.keys(groupedData).map(
@@ -166,12 +178,30 @@ const PrivateChefMealPrep = () => {
       <AdsSection />
 
       {/* Render content based on activeTab */}
-      {activeTab && (
+      {activeTab === "Restaurant" && serviceProviders ? (
+        <CommonContent
+          Data={serviceProviders
+            .filter((provider) => provider) // Filter out any undefined elements
+            .map((provider: any) => ({
+              seeMenuBtn: false, // Always show the menu button
+              imagePath: provider.serviceProvider?.image || "", // Access the 'image' property of the referenced ServiceProviderModel
+              name: provider.title || "", // Access the 'title' property of the referenced ServiceProviderModel
+              description: provider.serviceProvider?.description || "", // Access the 'description' property of the referenced ServiceProviderModel
+              whatsAppDraftMsg: "", // Set the WhatsApp draft message if available, otherwise leave it empty
+              seeWhatsappBtn: false, // Set to false by default since it's not provided
+              // WhatsAppBtnText, showImage, and adImage are optional, so you can decide whether to include them or not
+            }))}
+        />
+      ) : (
         <CommonContent
           Data={
-            groupedData.find((obj: any) => obj.subTitle === activeTab)?.content || []
+            groupedData.find((obj: any) => obj.subTitle === activeTab)
+              ?.content || []
           }
         />
+        // <>
+        //   <div>Hello</div>
+        // </>
       )}
 
       <CommonContainer>
@@ -199,81 +229,6 @@ export default PrivateChefMealPrep;
 
 let whatsAppDraftMsg =
   "Hello Paul, I’m craving a special dining experience. Can I hire a private chef or explore meal prep options?";
-
-const RestaurantData: any[] = [
-  {
-    cardImage: "/privateChefImages/kosewe.jpg",
-    cardTitle: "K'Osewe Ranalo Foods",
-    description: `Something fishy is always cooking! from Tilapia, Nile perch, Cat fish to sardins (omena)
-      Variety of organic traditional vegetables
-      Acompany it with Ugali, Chapati, Rice or chips.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/mamymbuta.png",
-    cardTitle: "Mammy Mbuta",
-    description: `Savour the essence of West Africa at Mammy Mbuta, where "Taste De Kinshasa" invites you to indulge in an authentic culinary experience, celebrating the rich and diverse flavours of the region.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/maritas.jpg",
-    cardTitle: "Maritas",
-    description: `“The only way to eat wings: with messy hands and a satisfied smile.” -Paul.<br>   
-    Kenyas famous Bahjia Potatoes now served with a varrity of finger licking wings in 10 different flavours.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/jajemelo.jpg",
-    cardTitle: "Jajemelo",
-    description: `Indulge in the Jajemel Hot Feast Pizza for a delightful pizza experience`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/CHINESE TAKEOUT.webp",
-    cardTitle: "Chinese & Indian",
-    description: `Discover an exquisite blend of Chinese and Indian cuisines that Nairobi has to offer.
-    <br>Call us on 0794 701 568 for a culinary journey like no other.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: false,
-    seeWhatsappBtn: false,
-    WhatsAppBtnText: "request menu",
-  },
-];
-
-const PrivateChefData = [
-  {
-    cardImage: "/privateChefImages/bcp-personal-chef.png",
-    cardTitle: "Private Chef",
-    description: `Providing access to a private chef is a
-      luxurious offering that allows guests to
-      enjoy gourmet meals without leaving the
-      comfort of their Airbnb rental. The chef
-      can prepare custom menus tailored to the
-      guest’s preferences, creating a memorable
-      dining experience. Whether it’s a romantic
-      dinner, a family celebration, or special
-      dietary needs, the chef can accommodate
-      various culinary desires as well as
-      occassional cakes such as birthdays,
-      graduations, showers and more.
-      Weekly meal plans also available.
-      <li>Afordable</li>
-      <li>Simple</li>
-      <li>On The Go</li>
-      `,
-    whatsAppDraftMsg,
-    showImage: true,
-    adImage: "/privateChefImages/ad-Image-private-chef.jpg",
-  },
-];
 
 const Ads_PrivatechefData = [
   {
