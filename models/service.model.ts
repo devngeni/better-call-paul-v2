@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 enum Category {
   ToursandExperiences = "TOURS AND EXPERIENCES",
@@ -27,6 +27,7 @@ export interface IServiceItem extends Document {
   tag: string;
   serviceProvider?: string;
   content: IContentItem[];
+  service_id: Types.ObjectId
 }
 
 const ServiceItemSchema: Schema = new Schema<IServiceItem>({
@@ -41,6 +42,10 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   subTitle: { type: Schema.Types.String, required: true },
   tag: { type: Schema.Types.String },
   serviceProvider: { type: Schema.Types.String },
+  service_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'ServiceProvider'
+  },
   content: [
     {
       name: { type: Schema.Types.String, required: true },
