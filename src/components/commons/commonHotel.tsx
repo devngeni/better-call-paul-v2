@@ -113,6 +113,12 @@ const CommonHotel: React.FC<commonHotelProps> = ({
   const currentPath = route.asPath;
   const pathParts = currentPath.split("/");
 
+  useEffect(() => {
+    if (tabs.length > 0) {
+      setActiveTab(tabs[0].name);
+    }
+  }, [tabs]);
+
   return (
     <>
       <Layout
@@ -162,7 +168,7 @@ const CommonHotel: React.FC<commonHotelProps> = ({
             </>
           )}
         </HotelContainer>
-        
+
         {showAd && (
           <div style={{ marginBottom: "20px" }}>
             <ExpactQuideAd />
@@ -180,14 +186,9 @@ const CommonHotel: React.FC<commonHotelProps> = ({
             )}
           </ShopCartContent>
         </ShopCartContainer>
-
-      
       </Layout>
     </>
   );
 };
 
 export default CommonHotel;
-
-
-
