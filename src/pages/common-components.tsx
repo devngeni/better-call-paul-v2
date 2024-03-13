@@ -186,7 +186,7 @@ the story!"
             { id: 1, imageUrl: "/LR.png" },
             { id: 2, imageUrl: "/LR.png" },
             { id: 3, imageUrl: "/LR.png" },
-          ]}
+          ]} imagePath={undefined}
         />
         <CommonHotel
           activeTab={currentSelection}
