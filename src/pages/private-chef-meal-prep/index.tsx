@@ -97,7 +97,7 @@ const PrivateChefMealPrep = () => {
   const [tabs, setTabs] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [serviceProviders, setServiceProviders] = useState<string[]>([]);
-  const [groupedData, setGroupedData] = useState<{ [key: string]: any }>({});
+  const [groupedData, setGroupedData] = useState<any[]>([]);
 
   const { getServiceDataByCategory } = useServicesDataContext();
 
@@ -109,13 +109,39 @@ const PrivateChefMealPrep = () => {
 
       console.log("privateChef", privateChefData);
 
-      // Extracting unique service providers
-      const serviceProviderSet = new Set(
-        privateChefData.map((data: any) => data.serviceProvider)
+     // Define a function to find data by service_id
+    function findDataByServiceId(serviceId: any) {
+      return privateChefData.find(
+        (item: any) => item.service_id && item.service_id.trim() === serviceId
       );
-      const serviceProviderList: any = Array.from(serviceProviderSet);
-      console.log("serviceProviderList", serviceProviderList);
-      setServiceProviders(serviceProviderList);
+    }
+
+      // Extracting unique service_ids from privateChefData
+      const uniqueServiceIds = [
+        ...new Set(
+          privateChefData.map((item: any) =>
+            item.service_id ? item.service_id.trim() : null
+          )
+        ),
+      ];
+
+      // Filter out any null values
+      const filteredUniqueServiceIds = uniqueServiceIds.filter(
+        (id) => id !== null
+      );
+
+      console.log("filteredUniqueServiceIds", filteredUniqueServiceIds);
+
+
+
+      
+      // Extracting unique service providers
+      // const serviceProviderSet = new Set(
+      //   privateChefData.map((data: any) => data.serviceProvider)
+      // );
+      // const serviceProviderList: any = Array.from(serviceProviderSet);
+      // console.log("serviceProviderList", serviceProviderList);
+      // setServiceProviders(serviceProviderList);
 
       const groupedData: any = groupItemsBySubtitle(privateChefData);
       setGroupedData(groupedData);
@@ -199,9 +225,6 @@ const PrivateChefMealPrep = () => {
               ?.content || []
           }
         />
-        // <>
-        //   <div>Hello</div>
-        // </>
       )}
 
       <CommonContainer>

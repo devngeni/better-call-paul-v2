@@ -1,4 +1,6 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
+import { Service } from "@/services/inserter"; // Import Service here if needed
+import ServiceProviderModel, { IServiceProvider } from "./ServiceProvider.model";
 
 enum Category {
   ToursandExperiences = "TOURS AND EXPERIENCES",
@@ -21,43 +23,49 @@ interface IContentItem {
   imagePath: string;
   price: number;
 }
+
 export interface IServiceItem extends Document {
   category: Category;
   subTitle: string;
   tag: string;
-  serviceProvider?: string;
+  serviceProvider?: IServiceProvider; // Change serviceProvider type to IServiceProvider
   content: IContentItem[];
   service_id: Types.ObjectId;
 }
 
 const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   category: {
-    type: Schema.Types.String,
+    type: String,
     required: true,
     enum: {
       values: Object.values(Category),
       message: `Category can only be, ${Object.values(Category).join(",")}`,
     },
   },
-  subTitle: { type: Schema.Types.String, required: true },
-  tag: { type: Schema.Types.String },
-  serviceProvider: { type: Schema.Types.String, ref: "ServiceProvider" },
-  service_id: {
-    type: Schema.Types.ObjectId,
-    ref: "ServiceProvider",
-  },
+  subTitle: { type: String, required: true },
+  tag: { type: String },
+  serviceProvider: { type: Schema.Types.ObjectId, ref: "ServiceProvider" }, // Change ref to "ServiceProvider"
+  service_id: { type: Schema.Types.ObjectId, ref: "ServiceProviders" }, // Assuming this is correct, otherwise update the ref
   content: [
     {
-      name: { type: Schema.Types.String, required: true },
-      description: { type: Schema.Types.String },
-      imagePath: { type: Schema.Types.String, required: false },
-      price: { type: Schema.Types.Number },
+      name: { type: String, required: true },
+      description: { type: String },
+      imagePath: { type: String, required: false },
+      price: { type: Number },
     },
   ],
 });
 
+// ServiceItemSchema.pre(/^find/, (next) => {
+//   this.populate({
+//     path: "service_id",
+//     model: ServiceProviderModel,
+//   });
+//   next();
+// });
+
 const ServiceItemsModel =
   mongoose.models.ServiceItems ||
-  mongoose.model("ServiceItems", ServiceItemSchema);
+  mongoose.model<IServiceItem>("ServiceItems", ServiceItemSchema);
 
 export default ServiceItemsModel;
