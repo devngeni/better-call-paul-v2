@@ -140,7 +140,7 @@ const BottomNavbar: React.FC<BottomNavbarProps> = ({
         setLoading(false);
       }, 2000);
     })();
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
