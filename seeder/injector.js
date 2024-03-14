@@ -51,6 +51,13 @@ const serviceItemsModel = model('ServiceItem', ServiceItemSchema)
 
 
 async function serviceIdInjector() {
+
+    try {
+        const items  =  await serviceItemsModel.find({category: "PRIVATE CHEF & MEAL PREP"}).populate({path: "service_id", model:  Ser})
+    }catch(err) {
+
+    }
+
     try {
         const restaurants = await serviceItemsModel.find({category: "PRIVATE CHEF & MEAL PREP"})
         for (const restaurant of restaurants) {
@@ -111,5 +118,5 @@ async function serviceIdInjector() {
         console.log(e.message, 'something went wrong')
     }
 } 
-
+populateServiceProviderData
 serviceIdInjector()

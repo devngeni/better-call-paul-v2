@@ -1,6 +1,8 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 import { Service } from "@/services/inserter"; // Import Service here if needed
-import ServiceProviderModel, { IServiceProvider } from "./ServiceProvider.model";
+import ServiceProviderModel, {
+  IServiceProvider,
+} from "./ServiceProvider.model";
 
 enum Category {
   ToursandExperiences = "TOURS AND EXPERIENCES",
@@ -44,7 +46,7 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   },
   subTitle: { type: String, required: true },
   tag: { type: String },
-  serviceProvider: { type: Schema.Types.ObjectId, ref: "ServiceProvider" }, // Change ref to "ServiceProvider"
+  serviceProvider: { type: Schema.Types.ObjectId },
   service_id: { type: Schema.Types.ObjectId, ref: "ServiceProviders" }, // Assuming this is correct, otherwise update the ref
   content: [
     {
@@ -55,14 +57,6 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
     },
   ],
 });
-
-// ServiceItemSchema.pre(/^find/, (next) => {
-//   this.populate({
-//     path: "service_id",
-//     model: ServiceProviderModel,
-//   });
-//   next();
-// });
 
 const ServiceItemsModel =
   mongoose.models.ServiceItems ||
