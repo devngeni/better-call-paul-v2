@@ -21,7 +21,6 @@ export default function TravelAndPage() {
       footer={<Footer />}
       bottomNav={<BottomNavigation />}
     >
-      {/* <TravelPage mappedData={vehiclesData} /> */}
       <TravelPage mappedData={groupItemsBySubtitle(TravelData)} />
     </Layout>
   );

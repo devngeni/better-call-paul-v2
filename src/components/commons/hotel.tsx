@@ -173,7 +173,7 @@ const Hotel = ({
   return (
     <div>
       <ImageCover>
-        <Image src={src} alt="hotel" fill />
+        <Image src={src} alt="imagePath" fill />
       </ImageCover>
       <HotelContent>
         <HotelTitle>{content}</HotelTitle>

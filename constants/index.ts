@@ -3,4 +3,5 @@ export const CATEGORIES = {
   travelAndConceige: "TRAVEL CONCIERGE",
   wellness: "WELLNESS AND GROOMING",
   propertyMgt: "PROPERTY MANAGEMENT",
+  restaurantAndChef: "PRIVATE CHEF & MEAL PREP",
 };

@@ -22,31 +22,42 @@ import AdsSection from "@/styles/landingPageStyles/Ads";
 import { generateSlug } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
+import { CATEGORIES } from "../../../constants";
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import ServiceProviderModel, {
+  IServiceProvider,
+} from "../../../models/ServiceProvider.model";
 
-interface commonContentProps {
+interface CommonContentProps {
   Data: {
-    cardImage: any;
-    cardTitle: string;
+    imagePath: string;
+    name: string;
     description: string;
     whatsAppDraftMsg: string;
+    seeMenuBtn?: boolean;
+    seeWhatsappBtn?: boolean;
+    WhatsAppBtnText?: string;
     showImage?: boolean;
+    adImage?: string;
   }[];
 }
 
-const CommonContent = ({ Data }: commonContentProps) => {
+const CommonContent = ({ Data }: CommonContentProps) => {
   const router = useRouter();
   const handleRoute = (slug: string) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
+  console.log("Data", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
-        <HotelWrapper itemCount={Data.length} key={index}>
+        <HotelWrapper itemCount={Data.length} key={item._id}>
           <Hotel
-            src={item.cardImage}
-            content={item.cardTitle}
+            src={item.imagePath}
+            content={item.name}
             description={item.description}
             info={item.whatsAppDraftMsg}
             handleSeeMenuButtonClick={() => handleRoute(item.cardTitle)}
@@ -83,10 +94,76 @@ const CommonContent = ({ Data }: commonContentProps) => {
 const PrivateChefMealPrep = () => {
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("private-chef & meal-prep");
-  const [tabs] = useState(["Restaurant", "Private Chef & Meal Prep"]);
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [tabs, setTabs] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+  const [serviceProviders, setServiceProviders] = useState<string[]>([]);
+  const [groupedData, setGroupedData] = useState<any[]>([]);
 
-  const getActiveTabAndPath = (tab: any) => {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const privateChefData = getServiceDataByCategory(
+        CATEGORIES.restaurantAndChef
+      );
+
+      console.log("privateChef", privateChefData);
+
+     // Define a function to find data by service_id
+    function findDataByServiceId(serviceId: any) {
+      return privateChefData.find(
+        (item: any) => item.service_id && item.service_id.trim() === serviceId
+      );
+    }
+
+      // Extracting unique service_ids from privateChefData
+      const uniqueServiceIds = [
+        ...new Set(
+          privateChefData.map((item: any) =>
+            item.service_id ? item.service_id.trim() : null
+          )
+        ),
+      ];
+
+      // Filter out any null values
+      const filteredUniqueServiceIds = uniqueServiceIds.filter(
+        (id) => id !== null
+      );
+
+      console.log("filteredUniqueServiceIds", filteredUniqueServiceIds);
+
+
+
+      
+      // Extracting unique service providers
+      // const serviceProviderSet = new Set(
+      //   privateChefData.map((data: any) => data.serviceProvider)
+      // );
+      // const serviceProviderList: any = Array.from(serviceProviderSet);
+      // console.log("serviceProviderList", serviceProviderList);
+      // setServiceProviders(serviceProviderList);
+
+      const groupedData: any = groupItemsBySubtitle(privateChefData);
+      setGroupedData(groupedData);
+
+      // console.log("groupedData", groupedData);
+
+      // Set tabs based on the `subTitle` key in each object of groupedData
+      const tabKeys = Object.keys(groupedData).map(
+        (key) => groupedData[key].subTitle
+      );
+      setTabs(tabKeys);
+
+      // If activeTab is not set, set it to the first tab
+      if (activeTab === null && tabKeys.length > 0) {
+        setActiveTab(tabKeys[0]);
+        console.log("activeTab", tabKeys[0]); // Log the active tab for debugging
+      }
+    };
+    fetchData();
+  }, [getServiceDataByCategory, activeTab]);
+
+  const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
     setActiveTab(tab);
   };
@@ -126,8 +203,29 @@ const PrivateChefMealPrep = () => {
       </StyledBottomNavbar>
       <AdsSection />
 
-      {activeTab === tabs[0] && <CommonContent Data={RestaurandData} />}
-      {activeTab === tabs[1] && <CommonContent Data={PrivateChefData} />}
+      {/* Render content based on activeTab */}
+      {activeTab === "Restaurant" && serviceProviders ? (
+        <CommonContent
+          Data={serviceProviders
+            .filter((provider) => provider) // Filter out any undefined elements
+            .map((provider: any) => ({
+              seeMenuBtn: false, // Always show the menu button
+              imagePath: provider.serviceProvider?.image || "", // Access the 'image' property of the referenced ServiceProviderModel
+              name: provider.title || "", // Access the 'title' property of the referenced ServiceProviderModel
+              description: provider.serviceProvider?.description || "", // Access the 'description' property of the referenced ServiceProviderModel
+              whatsAppDraftMsg: "", // Set the WhatsApp draft message if available, otherwise leave it empty
+              seeWhatsappBtn: false, // Set to false by default since it's not provided
+              // WhatsAppBtnText, showImage, and adImage are optional, so you can decide whether to include them or not
+            }))}
+        />
+      ) : (
+        <CommonContent
+          Data={
+            groupedData.find((obj: any) => obj.subTitle === activeTab)
+              ?.content || []
+          }
+        />
+      )}
 
       <CommonContainer>
         <CommonWrapper>
@@ -154,81 +252,6 @@ export default PrivateChefMealPrep;
 
 let whatsAppDraftMsg =
   "Hello Paul, I’m craving a special dining experience. Can I hire a private chef or explore meal prep options?";
-
-const RestaurandData = [
-  {
-    cardImage: "/privateChefImages/kosewe.jpg",
-    cardTitle: "K'Osewe Ranalo Foods",
-    description: `Something fishy is always cooking! from Tilapia, Nile perch, Cat fish to sardins (omena)
-      Variety of organic traditional vegetables
-      Acompany it with Ugali, Chapati, Rice or chips.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/mamymbuta.png",
-    cardTitle: "Mammy Mbuta",
-    description: `Savour the essence of West Africa at Mammy Mbuta, where "Taste De Kinshasa" invites you to indulge in an authentic culinary experience, celebrating the rich and diverse flavours of the region.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/maritas.jpg",
-    cardTitle: "Maritas",
-    description: `“The only way to eat wings: with messy hands and a satisfied smile.” -Paul.<br>   
-    Kenyas famous Bahjia Potatoes now served with a varrity of finger licking wings in 10 different flavours.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/jajemelo.jpg",
-    cardTitle: "Jajemelo",
-    description: `Indulge in the Jajemel Hot Feast Pizza for a delightful pizza experience`,
-    whatsAppDraftMsg,
-    seeMenuBtn: true,
-    seeWhatsappBtn: true,
-  },
-  {
-    cardImage: "/privateChefImages/CHINESE TAKEOUT.webp",
-    cardTitle: "Chinese & Indian",
-    description: `Discover an exquisite blend of Chinese and Indian cuisines that Nairobi has to offer.
-    <br>Call us on 0794 701 568 for a culinary journey like no other.`,
-    whatsAppDraftMsg,
-    seeMenuBtn: false,
-    seeWhatsappBtn: false,
-    WhatsAppBtnText: "request menu",
-  },
-];
-
-const PrivateChefData = [
-  {
-    cardImage: "/privateChefImages/bcp-personal-chef.png",
-    cardTitle: "Private Chef",
-    description: `Providing access to a private chef is a
-      luxurious offering that allows guests to
-      enjoy gourmet meals without leaving the
-      comfort of their Airbnb rental. The chef
-      can prepare custom menus tailored to the
-      guest’s preferences, creating a memorable
-      dining experience. Whether it’s a romantic
-      dinner, a family celebration, or special
-      dietary needs, the chef can accommodate
-      various culinary desires as well as
-      occassional cakes such as birthdays,
-      graduations, showers and more.
-      Weekly meal plans also available.
-      <li>Afordable</li>
-      <li>Simple</li>
-      <li>On The Go</li>
-      `,
-    whatsAppDraftMsg,
-    showImage: true,
-    adImage: "/privateChefImages/ad-Image-private-chef.jpg",
-  },
-];
 
 const Ads_PrivatechefData = [
   {

@@ -1,21 +1,21 @@
 import Image, { StaticImageData } from "next/image";
-import styled from "styled-components";
+import styled, { CSSProperties } from "styled-components";
 import React, { ReactNode } from "react";
 
 interface BackgroundProps {
   src: StaticImageData;
   alt: string;
   children?: ReactNode;
-  additionalStyle?: React.CSSProperties;
+  additionalStyle?: CSSProperties; 
 }
 
-const BackgroundWrapper = styled.div<{ additionalStyle?: React.CSSProperties }>`
+const BackgroundWrapper = styled.div<{ additionalStyle?: CSSProperties }>` // Change to CSSProperties here
   position: relative;
   width: 100%;
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
   z-index: 2;
-  ${(props) => props.additionalStyle && { ...props.additionalStyle }};
+  ${(props) => props.additionalStyle && { ...props.additionalStyle }}; // Make sure this is correctly typed
 `;
 
 const Background: React.FC<BackgroundProps> = ({
@@ -25,7 +25,7 @@ const Background: React.FC<BackgroundProps> = ({
   additionalStyle,
 }) => {
   return (
-    <BackgroundWrapper style={additionalStyle}>
+    <BackgroundWrapper additionalStyle={additionalStyle}>
       <Image
         alt={alt}
         src={src}

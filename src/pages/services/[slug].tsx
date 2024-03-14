@@ -27,75 +27,8 @@ const fetchDataBasedOnSlug = async (
 ) => {
   let data: any = {};
   switch (slug) {
-    case "private-chef":
-      data = {
-        tabs: [
-          { name: "Restaurants" },
-          { name: "Meal prep" },
-          { name: "Private chef" },
-        ],
-        title: "Private Chef Meal Prep & Dinner",
-        activeTab: "Tab1",
-        text: "Kenya makes a perfect holiday destination. Whether you’re looking to relax in an unspoiled, picture book location by the sea or discover jaw-dropping scenery and incredible wildlife, in the savannah, you can do it in this magnificent country.",
-        backgroundImage: "/DealsImages/food.png",
-        hotelsData: [
-          {
-            subTitle: "Restaurants",
-            content: [
-              {
-                content: "Mamy Mbuta",
-                name: "Your home of West-African Cuisines",
-                hotelDescription: "Your home of West-African Cuisines",
-                image: Prep,
-              },
-              {
-                content: "Ranalo Foods",
-                hotelDescription: "Enjoy Kenyan kienjeji meals",
-                name: "Title 1",
-                image: Prep,
-              },
-              {
-                content: "Jajamelo",
-                name: "Your home of West-African Cuisines",
-                hotelDescription: "Buy 1, get 2 pizzas every Tuesday",
-                image: Jajemelo,
-              },
-              {
-                content: "Maritas Bhajia",
-                hotelDescription: "Fast food outlet",
-                name: "Title 1",
-                image: Bhajia,
-              },
-            ],
-          },
-          {
-            subTitle: "Meal prep",
-            content: [
-              {
-                content: "Meal Prep",
-                name: "Title 2",
-                hotelDescription: "Title 2",
-                image: Meal,
-              },
-            ],
-          },
-          {
-            subTitle: "Private chef",
-            content: [
-              {
-                name: "Title 3",
-                hotelDescription: "Title 2",
-                image: Chef,
-                content: "Private Chef",
-              },
-            ],
-          },
-        ],
-      };
-      break;
     case "gift-shop":
       const giftShopdata = formattedData(getServiceDataByCategory("GIFTSHOP"));
-
       data = {
         tabs: [{ name: "Available Gifts" }],
         title: "Giftshop",
@@ -184,7 +117,6 @@ const fetchDataBasedOnSlug = async (
       break;
     case "house-keeping":
       const houseKeepingData = getServiceDataByCategory("HOUSEKEEPING");
-
       data = {
         tabs: [{ name: "House Keeping" }],
         title: "House Keeping",
@@ -197,7 +129,7 @@ const fetchDataBasedOnSlug = async (
                 content: "House Keeping",
                 hotelDescription:
                   "We ensure the cleanliness and maintenance of the property is crucial for a positive guest experience. Our commitment to pristine cleaning ensures that our guests feel comfortable and safe during their stay.",
-                image: houseKeep,
+                image: houseKeepingData[0].content[0].imagePath,
                 price: "10",
                 info: "Hello Paul, my space needs a clean up, can I book your housekeeping services?",
               },
@@ -352,7 +284,6 @@ const fetchDataBasedOnSlug = async (
     case "property-management":
       const propertyMgt = getServiceDataByCategory("PROPERTY MANAGEMENT");
 
-      // console.log(propertyMgt[0], "data");
       data = {
         tabs: [{ name: "Property Management" }],
         title: "Property Management",
@@ -517,7 +448,6 @@ const fetchDataBasedOnSlug = async (
       break;
     case "luggage":
       const luggageData = getServiceDataByCategory("LAUGGAGE SHOP");
-      // console.log("luggage data", luggageData);
 
       data = {
         tabs: [{ name: "Luggage Services", icon: "AirTrIcon" }],
@@ -785,11 +715,13 @@ const fetchDataBasedOnSlug = async (
       const rentableData = groupRentablesSubtitle(
         getServiceDataByCategory("RENTABLES")
       );
+
+
       data = {
-        tabs: [{ name: "Rentables" }, { name: "Portable Wifi" }],
+        tabs: [{ name: rentableData[0].subTitle }, { name: rentableData[1].subTitle }],
         title: "Rentable Services",
         activeTab: "Rentables",
-        text: " The well-being and happiness of your children are our top priorities. We understand the importance of finding a trustworthy and caring partner to assist with the unique needs of your family especially when you are on holiday. ",
+        text: "The well-being and happiness of your children are our top priorities. We understand the importance of finding a trustworthy and caring partner to assist with the unique needs of your family especially when you are on holiday. ",
         backgroundImage: "/DealsImages/rentable.webp",
         hotelsData: rentableData,
         faqsTitle: "Inquiries",
@@ -923,10 +855,17 @@ export default function SlugPage({ data }: any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
-
+  console.log("slug", slug)
+  
   const res = await fetch(`${process.env.BASE_URL}/api/service`);
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`);
+  }
+
   const fetchedData = await res.json();
+
+  console.log("data", fetchedData);
 
   const getServiceDataByCategory = (category: string) => {
     if (fetchedData) {

@@ -34,6 +34,9 @@ export function useServicesDataContext() {
 export const ServicesDataProvider = ({ children }: any) => {
   const { data, error, isLoading } = useSWR("api/service", fetcher);
 
+  //Prints all data from DB
+  // console.log("data", data);
+
   const getServiceDataByCategory = (category: string) => {
     if (data) {
       return data.services.filter((item: any) => item.category === category);
