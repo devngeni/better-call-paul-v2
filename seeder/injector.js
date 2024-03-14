@@ -1,7 +1,7 @@
 // Feel free to keep this file or delete it or whatever -> Fred
 const  { Schema, model, connect, connection } = require('mongoose')
 
-connect('mongodb+srv://bettercallpaul:sQOkWzfk5e6FTuRW@bcp-dev.el8ezcc.mongodb.net/bcb-dev')
+connect('')
     .then(() => console.log('connected to db successfully'))
     .catch(e => console.log('failed to connect to db', e.message))
 
