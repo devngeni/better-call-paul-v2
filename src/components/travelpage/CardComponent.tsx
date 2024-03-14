@@ -219,6 +219,7 @@ const Card: React.FC<CardProps> = ({
   category,
   description,
   handleClick,
+  onAddToCart,
   loading,
 }) => {
   const [showQuantityControls, setShowQuantityControls] = useState(false);

@@ -19,7 +19,7 @@ const GroomSection = ({ wellnessData }: any) => {
     router.back();
   };
 
-  console.log("wellness", wellnessData);
+  // console.log("wellness", wellnessData);
 
   const handleSelectionChange = (selection: string) => {
     setCurrentSelection(selection);
