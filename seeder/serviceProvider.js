@@ -1,7 +1,7 @@
 // Feel free to keep the seeder file or delete it or whatever -> Fred
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb+srv://bettercallpaul:sQOkWzfk5e6FTuRW@bcp-dev.el8ezcc.mongodb.net/bcb-dev')
+mongoose.connect('')
     .then(() => console.log('connected to db successfully'))
     .catch(e => console.log('failed to connect to db', e.message))
 
