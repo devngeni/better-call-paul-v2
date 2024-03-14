@@ -54,6 +54,7 @@ async function serviceIdInjector() {
     try {
         const restaurants = await serviceItemsModel.find({category: "PRIVATE CHEF & MEAL PREP"})
         for (const restaurant of restaurants) {
+           if (restaurant.serviceProvider !== "undefined") {
             switch(restaurant.serviceProvider) {
                 case "K'Osewe Ranalo Foods":
              
@@ -63,7 +64,10 @@ async function serviceIdInjector() {
                         {$set: {service_id: '65ef3dc98a91bcaaf07b594e'}},
                         {new: true}
                     )
-                     await koweseDoc.save()
+                     if (koweseDoc) {
+                      await koweseDoc.save()
+                     }
+                     break;
                 case 'Mammy Mbuta':
                    
                     const mbutaId = restaurant._id
@@ -72,7 +76,10 @@ async function serviceIdInjector() {
                         {$set: {service_id: '65ef3dc98a91bcaaf07b594f'}},
                         {new: true}
                     )
-                    await mbutaDoc.save()
+                    if (mbutaDoc) {
+                     await mbutaDoc.save()
+                    }
+                    break;
                 case 'Maritas':
                    
                     const maritasId = restaurant._id
@@ -81,7 +88,10 @@ async function serviceIdInjector() {
                         {$set: {service_id: '65ef3dc98a91bcaaf07b5950'}},
                         {new: true}
                     )
-                    await maritasDoc.save()
+                    if (maritasDoc) {
+                     await maritasDoc.save()
+                    }
+                    break;
                 case 'Jajemelo':
                    
                     const jjameloId = restaurant._id
@@ -90,7 +100,10 @@ async function serviceIdInjector() {
                         {$set: {service_id: '65ef3dc98a91bcaaf07b5951'}},
                         {new: true}
                     )
-                    await jjameloDoc.save()
+                    if (jjameloDoc) {
+                        await jjameloDoc.save()
+                    }
+                    break;
 
                 case 'Chinese & Indian':
                    
@@ -100,10 +113,16 @@ async function serviceIdInjector() {
                         {$set: {service_id: '65ef3dc98a91bcaaf07b5952'}},
                         {new: true}
                     )
-                    await chineseIndiandoc.save()
+                    if (chineseIndiandoc) {
+                        await chineseIndiandoc.save()
+                    }
+                    break;
                 default: 
                     break;
             }
+         }else {
+            console.log(`undefined detected`, restaurant.content[0].name)
+         }
         }
         
         connection.close() // everything went well so far
