@@ -121,10 +121,7 @@ export default function SlugPage({ data }: any) {
                 category: currentPath,
                 quantity: 1,
               })}
-              handleClick={handleClick}
-              isLoading={true}
-              loading={true}
-            />
+              handleClick={handleClick} isLoading={false} loading={false}            />
           </CardContainer>
         ))}
       </StyledContent>

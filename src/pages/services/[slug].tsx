@@ -1,10 +1,15 @@
 import { CommonHotel } from "@/components/commons";
 import { GetServerSideProps } from "next";
+// import { PrivateChefData } from "@/utils/services-data";
+import Chef from "../../../public/DealsImages/chef.png";
+import Prep from "../../../public/DealsImages/detergent.webp";
+import houseKeep from "/public/houseKeeping1.png";
+import Bhajia from "../../../public/DealsImages/bhajia.webp";
+import Jajemelo from "../../../public/DealsImages/jajemelo.webp";
+import Meal from "../../../public/DealsImages/food.png";
 import { AirTrIcon } from "../../../public/Icons";
 import BottomNavigation from "@/components/Navbar/BottomNav";
-import {
-  groupRentablesSubtitle
-} from "@/utils/groupSubTitles";
+import { groupRentablesSubtitle } from "@/utils/groupSubTitles";
 import SkeletonLoader from "@/components/commons/Skeleton";
 
 export const getIconComponent = (iconName: any) => {
@@ -831,9 +836,13 @@ export function formattedData(dataItems: any[]) {
   ];
 }
 
-export default function SlugPage({ data, fetchedData }: any) {
+export default function SlugPage({ data }: any) {
   if (!data) {
-    return <div><SkeletonLoader /></div>;
+    return (
+      <div>
+        <SkeletonLoader />
+      </div>
+    );
   }
 
   return (
@@ -874,7 +883,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       data,
-      fetchedData,
     },
   };
 };
