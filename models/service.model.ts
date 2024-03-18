@@ -1,6 +1,8 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 import { Service } from "@/services/inserter"; // Import Service here if needed
-import ServiceProviderModel, { IServiceProvider } from "./ServiceProvider.model";
+import ServiceProviderModel, {
+  IServiceProvider,
+} from "./ServiceProvider.model";
 
 enum Category {
   ToursandExperiences = "TOURS AND EXPERIENCES",
@@ -15,6 +17,7 @@ enum Category {
   Giftshop = "GIFTSHOP",
   Rentables = "RENTABLES",
   LauggageShop = "LAUGGAGE SHOP",
+  BannerAd = "BANNER AD",
 }
 
 interface IContentItem {
