@@ -1,8 +1,8 @@
-
 import React from "react";
 import styled from "styled-components";
 import FullDay from "../../../public/Icons/FullDay";
 import { ChaufferIcon, Profile } from "../../../public/Icons";
+import { useRouter } from "next/router";
 
 const QuickActionsContainer = styled.div`
   display: flex;
@@ -68,24 +68,29 @@ interface ActionItem {
   title: string;
   description: string;
   icons: React.ReactNode;
+  routePath?: string;
 }
 
 const QuickActions: React.FC = () => {
+  const router = useRouter();
   const actions: ActionItem[] = [
     {
       icons: <FullDay />,
       title: "New in Nairobi?",
       description: "See Nairobi's popular attractions",
+      routePath: "tour-and-experience",
     },
     {
       icons: <ChaufferIcon />,
       title: "Access Transport Services",
       description: "Hire a car in Nairobi",
+      routePath: "travel-and-coincierge",
     },
     {
       icons: <Profile />,
       title: "Unlimited meal prep plans",
       description: "Get a private chef during your stay",
+      routePath: "private-chef-meal-prep",
     },
   ];
 
@@ -94,7 +99,7 @@ const QuickActions: React.FC = () => {
       <Title>Quick Actions</Title>
       <ActionsContainer>
         {actions.map((action, index) => (
-          <ActionCard key={index}>
+          <ActionCard key={index} onClick={()=>router.push(`/${action.routePath}`)}>
             {action.icons}
             <ActionTitle>{action.title}</ActionTitle>
             <p>{action.description}</p>
