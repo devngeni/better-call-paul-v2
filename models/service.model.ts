@@ -45,7 +45,7 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   subTitle: { type: String, required: true },
   tag: { type: String },
   serviceProvider: { type: Schema.Types.ObjectId, ref: "ServiceProvider" }, // Change ref to "ServiceProvider"
-  service_id: [{ type: Schema.Types.ObjectId, ref: "ServiceProviders" }], // Assuming this is correct, otherwise update the ref
+  service_id: [{ type: Schema.Types.ObjectId, ref: "ServiceProviders" }], // Assuming this is correct, otherwise update the ref // also instead of [] just a {}
   content: [
     {
       name: { type: String, required: true },
