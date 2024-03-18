@@ -1,6 +1,6 @@
 export class Environment {
   static _prod__ =
-    process.env.NODE_ENV === "development"
+    process.env.NODE_ENV === "production"
       ? process.env.LOCAL_URL
       : process.env.LIVE_URL;
 
