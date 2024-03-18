@@ -39,6 +39,16 @@ export default async function handler(
       return res
         .status(200)
         .json({ success: true, data: updateServiceProvider });
+    } else if (req.method === "DELETE") {
+      const serviceProviderToDelete = await ServiceProviderModel.findById(id);
+      if (!serviceProviderToDelete) {
+        return res.status(404).json({ message: "Service Provider Not Found" });
+      }
+      await ServiceProviderModel.findByIdAndDelete(id);
+      return res.status(200).json({
+        success: true,
+        message: "Service Provider Deleted Successfully!",
+      });
     } else {
       return res
         .status(405)
