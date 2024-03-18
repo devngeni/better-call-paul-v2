@@ -184,13 +184,11 @@ const Hotel = ({
       </HotelContent>
       <HotelBtn>
         {seeMenuBtn && (
-          <BookButton
-            onClick={handleSeeMenuButtonClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            See Menu
-          </BookButton>
+         <SeeMenuBtn
+         handleSeeMenuButtonClick={handleSeeMenuButtonClick}
+         btnText="See Menu"
+         style={{ /* Add your custom styles here */ }}
+       />
         )}
         {!seeWhatsappBtn && (
           <WhatsAppBtn

@@ -26,9 +26,6 @@ import React, { useEffect, useState } from "react";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
-import ServiceProviderModel, {
-  IServiceProvider,
-} from "../../../models/ServiceProvider.model";
 
 interface CommonContentProps {
   Data: {
@@ -37,34 +34,44 @@ interface CommonContentProps {
     description: string;
     whatsAppDraftMsg: string;
     seeMenuBtn?: boolean;
-    seeWhatsappBtn?: boolean;
+    seeWhatsappBtn?: string;
     WhatsAppBtnText?: string;
     showImage?: boolean;
     adImage?: string;
   }[];
+  activeTab: string | null;
 }
 
-const CommonContent = ({ Data }: CommonContentProps) => {
+interface PrivateChefDataItem {
+  category: string;
+  content: any[];
+  service_id: string[];
+  subTitle: string;
+  tag: string;
+}
+
+const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
   const router = useRouter();
   const handleRoute = (slug: string) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
-  console.log("Data", Data);
+  console.log("Data4", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
         <HotelWrapper itemCount={Data.length} key={item._id}>
-          <Hotel
-            src={item.imagePath}
-            content={item.name}
-            description={item.description}
-            info={item.whatsAppDraftMsg}
-            handleSeeMenuButtonClick={() => handleRoute(item.cardTitle)}
-            seeMenuBtn={item.seeMenuBtn}
-            seeWhatsappBtn={item.seeWhatsappBtn}
-            WhatsAppBtnText={item.WhatsAppBtnText}
-          />
+         <Hotel
+              src={item.image || item.imagePath}
+              content={item.name || item.title}
+              description={item.description}
+              info={item.whatsAppDraftMsg}
+              handleSeeMenuButtonClick={() => handleRoute(item.title)} // Pass the function here
+              seeWhatsappBtn={item.seeWhatsappBtn}
+              WhatsAppBtnText={item.WhatsAppBtnText}
+              seeMenuBtn={item.seeMenuBtn}
+            />
+       
           {item.showImage && (
             <div
               className="image-at-private-chef"
@@ -98,8 +105,12 @@ const PrivateChefMealPrep = () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [serviceProviders, setServiceProviders] = useState<string[]>([]);
   const [groupedData, setGroupedData] = useState<any[]>([]);
+  const [privateChefData, setPrivateChefData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { getServiceDataByCategory } = useServicesDataContext();
+
+  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -109,42 +120,48 @@ const PrivateChefMealPrep = () => {
 
       console.log("privateChef", privateChefData);
 
-     // Define a function to find data by service_id
-    function findDataByServiceId(serviceId: any) {
-      return privateChefData.find(
-        (item: any) => item.service_id && item.service_id.trim() === serviceId
-      );
-    }
-
       // Extracting unique service_ids from privateChefData
-      const uniqueServiceIds = [
-        ...new Set(
-          privateChefData.map((item: any) =>
-            item.service_id ? item.service_id.trim() : null
-          )
-        ),
-      ];
+      const uniqueServiceIds: any = Array.from(
+        new Set(
+          privateChefData.reduce((acc: string[], item: PrivateChefDataItem) => {
+            // Ensure service_id is an array
+            if (Array.isArray(item.service_id)) {
+              // Concatenate existing service_id with new ones
+              acc.push(...item.service_id);
+            }
+            return acc;
+          }, [])
+        )
+      ).filter((id) => id && typeof id === "string" && id.trim() !== "");
 
-      // Filter out any null values
-      const filteredUniqueServiceIds = uniqueServiceIds.filter(
-        (id) => id !== null
-      );
-
-      console.log("filteredUniqueServiceIds", filteredUniqueServiceIds);
-
-
-      // Extracting unique service providers
-      // const serviceProviderSet = new Set(
-      //   privateChefData.map((data: any) => data.serviceProvider)
-      // );
-      // const serviceProviderList: any = Array.from(serviceProviderSet);
-      // console.log("serviceProviderList", serviceProviderList);
-      // setServiceProviders(serviceProviderList);
+      console.log("filteredUniqueServiceIds", uniqueServiceIds);
+      try {
+        const responses = await Promise.all(
+          uniqueServiceIds.map(async (id: string) => {
+            const res = await fetch(`${baseUrl}/api/provider?id=${id}`);
+            if (!res.ok) {
+              throw new Error(`Failed to fetch provider data for id ${id}`);
+            }
+            return res.json();
+          })
+        );
+        console.log("responses", responses);
+        const data: any = responses.flatMap((response: any) => response.data);
+        const uniqueData: any = Array.from(
+          new Set(data.map((item: any) => item._id))
+        ).map((id) => {
+          return data.find((item: any) => item._id === id);
+        });
+        setPrivateChefData(uniqueData);
+        console.log("privateChefData", uniqueData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
 
       const groupedData: any = groupItemsBySubtitle(privateChefData);
       setGroupedData(groupedData);
-
-      // console.log("groupedData", groupedData);
 
       // Set tabs based on the `subTitle` key in each object of groupedData
       const tabKeys = Object.keys(groupedData).map(
@@ -203,25 +220,14 @@ const PrivateChefMealPrep = () => {
 
       {/* Render content based on activeTab */}
       {activeTab === "Restaurant" && serviceProviders ? (
-        <CommonContent
-          Data={serviceProviders
-            .filter((provider) => provider) // Filter out any undefined elements
-            .map((provider: any) => ({
-              seeMenuBtn: false, // Always show the menu button
-              imagePath: provider.serviceProvider?.image || "", // Access the 'image' property of the referenced ServiceProviderModel
-              name: provider.title || "", // Access the 'title' property of the referenced ServiceProviderModel
-              description: provider.serviceProvider?.description || "", // Access the 'description' property of the referenced ServiceProviderModel
-              whatsAppDraftMsg: "", // Set the WhatsApp draft message if available, otherwise leave it empty
-              seeWhatsappBtn: false, // Set to false by default since it's not provided
-              // WhatsAppBtnText, showImage, and adImage are optional, so you can decide whether to include them or not
-            }))}
-        />
+        <CommonContent Data={privateChefData} activeTab={activeTab} />
       ) : (
         <CommonContent
           Data={
             groupedData.find((obj: any) => obj.subTitle === activeTab)
               ?.content || []
           }
+          activeTab={activeTab}
         />
       )}
 

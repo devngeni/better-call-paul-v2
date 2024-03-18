@@ -12,7 +12,6 @@ export default async function handler(
     await connectDB();
     if (req.method === "GET") {
         const { id  } = req.query
-        //65ef3dc98a91bcaaf07b594e
         if (!id) return res.status(400).json({error: false, message: "can't proceed with no ID"})
         const serviceProvider = await ServiceProviderModel.findById(id)        
         if (!serviceProvider) return res.status(400).json({message: "provider was not found"})
