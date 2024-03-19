@@ -7,15 +7,18 @@ import {
 import { CardTitle } from "@/styles/commons";
 import { Carousel } from ".";
 import CarouselSlider from "./HeroCarousel";
-
-
-const adsData = [
-  { id: 1, imageUrl: "/me.png" },
-  { id: 2, imageUrl: "/ad1.png" },
-  { id: 3, imageUrl: "/ad2.png" },
-];
+import { useServicesDataContext } from "@/context/GetServicesDataContext";
 
 const HeroSection = () => {
+  const { getServiceDataByCategory } = useServicesDataContext();
+
+  const adsData = getServiceDataByCategory("BANNER AD")?.map((item: any) => {
+    return {
+      id: item._id,
+      imageUrl: item.content[0].imagePath,
+    };
+  });
+
   return (
     <HeroContainer>
       <HeroBody>

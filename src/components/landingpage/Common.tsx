@@ -28,7 +28,7 @@ const Commons: React.FC<Props> = ({ title, images }) => {
       <DealsWrapper>
         <CardTitle>{title}</CardTitle>
         <DealsBox>
-          {images.map((item, index) => (
+          {images?.map((item, index) => (
             <ImageContainer key={index}>
               <Image
                 src={item.image}
