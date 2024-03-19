@@ -26,9 +26,8 @@ import React, { useEffect, useState } from "react";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
-import ServiceProviderModel, {
-  IServiceProvider,
-} from "../../../models/ServiceProvider.model";
+import { useRestaurantData } from "@/context/RestaurantContext";
+
 
 interface CommonContentProps {
   Data: {
@@ -37,34 +36,44 @@ interface CommonContentProps {
     description: string;
     whatsAppDraftMsg: string;
     seeMenuBtn?: boolean;
-    seeWhatsappBtn?: boolean;
+    seeWhatsappBtn?: string;
     WhatsAppBtnText?: string;
     showImage?: boolean;
     adImage?: string;
   }[];
+  activeTab: string | null;
 }
 
-const CommonContent = ({ Data }: CommonContentProps) => {
+interface RestaurantDataItem {
+  Data: {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+  }[];
+  activeTab: string | null;
+}
+
+const RestaurantCommonContent = ({ Data, activeTab }: RestaurantDataItem) => {
   const router = useRouter();
   const handleRoute = (slug: string) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
-  console.log("Data", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
         <HotelWrapper itemCount={Data.length} key={item._id}>
           <Hotel
-            src={item.imagePath}
-            content={item.name}
+            id={item._id}
+            src={item.image}
+            content={item.title}
             description={item.description}
-            info={item.whatsAppDraftMsg}
-            handleSeeMenuButtonClick={() => handleRoute(item.cardTitle)}
-            seeMenuBtn={item.seeMenuBtn}
-            seeWhatsappBtn={item.seeWhatsappBtn}
-            WhatsAppBtnText={item.WhatsAppBtnText}
+            handleSeeMenuButtonClick={() => handleRoute(item._id)}
+            seeMenuBtn={true}
+            seeWhatsappBtn={true}
           />
+
           {item.showImage && (
             <div
               className="image-at-private-chef"
@@ -91,6 +100,53 @@ const CommonContent = ({ Data }: CommonContentProps) => {
   );
 };
 
+const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
+
+  return (
+    <HotelContainer className="image-resize">
+      {Data?.map((item: any, index: any) => (
+        <HotelWrapper itemCount={Data.length} key={item._id}>
+          <Hotel
+            src={item.image || item.imagePath}
+            content={item.name || item.title}
+            description={item.description}
+            info={item.whatsAppDraftMsg}
+            seeWhatsappBtn={false}
+            WhatsAppBtnText={item.WhatsAppBtnText}
+          />
+
+          {item.showImage && (
+            <div
+              className="image-at-private-chef"
+              style={{
+                margin: "0 2% 10px 2%",
+                width: "calc(100% - 4%)",
+                height: "220px",
+                position: "relative",
+                borderRadius: "4px",
+              }}
+            >
+              <Image
+                src={item.adImage}
+                alt="adImage"
+                placeholder="blur"
+                blurDataURL={item.adImage}
+                layout="fill"
+              />
+            </div>
+          )}
+        </HotelWrapper>
+      ))}
+    </HotelContainer>
+  );
+};
+
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  return res.json();
+};
+
 const PrivateChefMealPrep = () => {
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("private-chef & meal-prep");
@@ -100,69 +156,30 @@ const PrivateChefMealPrep = () => {
   const [groupedData, setGroupedData] = useState<any[]>([]);
 
   const { getServiceDataByCategory } = useServicesDataContext();
+  const { privateChefData } = useRestaurantData(); // Fetching data from context
 
   useEffect(() => {
     const fetchData = async () => {
-      const privateChefData = getServiceDataByCategory(
+      const restaurantData = getServiceDataByCategory(
         CATEGORIES.restaurantAndChef
       );
 
-      console.log("privateChef", privateChefData);
-
-     // Define a function to find data by service_id
-    function findDataByServiceId(serviceId: any) {
-      return privateChefData.find(
-        (item: any) => item.service_id && item.service_id.trim() === serviceId
-      );
-    }
-
-      // Extracting unique service_ids from privateChefData
-      const uniqueServiceIds = [
-        ...new Set(
-          privateChefData.map((item: any) =>
-            item.service_id ? item.service_id.trim() : null
-          )
-        ),
-      ];
-
-      // Filter out any null values
-      const filteredUniqueServiceIds = uniqueServiceIds.filter(
-        (id) => id !== null
-      );
-
-      console.log("filteredUniqueServiceIds", filteredUniqueServiceIds);
-
-
-
-      
-      // Extracting unique service providers
-      // const serviceProviderSet = new Set(
-      //   privateChefData.map((data: any) => data.serviceProvider)
-      // );
-      // const serviceProviderList: any = Array.from(serviceProviderSet);
-      // console.log("serviceProviderList", serviceProviderList);
-      // setServiceProviders(serviceProviderList);
-
-      const groupedData: any = groupItemsBySubtitle(privateChefData);
+      const groupedData: any = groupItemsBySubtitle(restaurantData);
       setGroupedData(groupedData);
 
-      // console.log("groupedData", groupedData);
-
-      // Set tabs based on the `subTitle` key in each object of groupedData
       const tabKeys = Object.keys(groupedData).map(
         (key) => groupedData[key].subTitle
       );
       setTabs(tabKeys);
 
-      // If activeTab is not set, set it to the first tab
       if (activeTab === null && tabKeys.length > 0) {
         setActiveTab(tabKeys[0]);
-        console.log("activeTab", tabKeys[0]); // Log the active tab for debugging
       }
     };
     fetchData();
   }, [getServiceDataByCategory, activeTab]);
 
+ 
   const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
     setActiveTab(tab);
@@ -203,27 +220,15 @@ const PrivateChefMealPrep = () => {
       </StyledBottomNavbar>
       <AdsSection />
 
-      {/* Render content based on activeTab */}
       {activeTab === "Restaurant" && serviceProviders ? (
-        <CommonContent
-          Data={serviceProviders
-            .filter((provider) => provider) // Filter out any undefined elements
-            .map((provider: any) => ({
-              seeMenuBtn: false, // Always show the menu button
-              imagePath: provider.serviceProvider?.image || "", // Access the 'image' property of the referenced ServiceProviderModel
-              name: provider.title || "", // Access the 'title' property of the referenced ServiceProviderModel
-              description: provider.serviceProvider?.description || "", // Access the 'description' property of the referenced ServiceProviderModel
-              whatsAppDraftMsg: "", // Set the WhatsApp draft message if available, otherwise leave it empty
-              seeWhatsappBtn: false, // Set to false by default since it's not provided
-              // WhatsAppBtnText, showImage, and adImage are optional, so you can decide whether to include them or not
-            }))}
-        />
+        <RestaurantCommonContent Data={privateChefData} activeTab={activeTab} />
       ) : (
         <CommonContent
           Data={
             groupedData.find((obj: any) => obj.subTitle === activeTab)
               ?.content || []
           }
+          activeTab={activeTab}
         />
       )}
 

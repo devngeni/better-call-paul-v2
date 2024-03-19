@@ -855,9 +855,8 @@ export default function SlugPage({ data }: any) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { slug } = context.query;
-  console.log("slug", slug)
   
-  const res = await fetch(`${process.env.BASE_URL}/api/service`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/service`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`);
