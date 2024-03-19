@@ -30,7 +30,6 @@ const Images = [
 
 const DealSection = () => {
   const { data } = useServicesDataContext();
-  console.log("Deals of the Month", filterDataByTag("Deal of the Month", data));
 
   const DealsData = filterDataByTag("Deal of the Month", data)?.map(
     (item: any) => {
