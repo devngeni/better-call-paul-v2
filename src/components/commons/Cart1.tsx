@@ -70,7 +70,7 @@ const CloseButton = styled.button`
   }
 
   &:before {
-    content: "\u2715";
+    content: "&#x2715;";
     display: inline-block;
     font-family: ${(props) => props.theme.fontFace.fonts.bcpFont};
     font-weight: 900;
