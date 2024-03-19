@@ -116,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { foodItem } = context.query;
 
   // Fetch data directly and await the result
-  const res = await fetch(`${process.env.BASE_URL}/api/provider/${foodItem}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/provider/${foodItem}`);
   const fetchedDataById = await res.json();
 
   return {

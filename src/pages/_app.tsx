@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import { useEffect, useState } from "react";
 import Script from "next/script";
 import { ServicesDataProvider } from "@/context/GetServicesDataContext";
+import { RestaurantDataProvider } from "@/context/RestaurantContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ServicesDataProvider>
       <StyledComponentsRegistry>
+        <RestaurantDataProvider>
         <Theme>
           <PriceProvider>
             <CartProvider>
@@ -37,6 +39,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </CartProvider>
           </PriceProvider>
         </Theme>
+        </RestaurantDataProvider>
       </StyledComponentsRegistry>
     </ServicesDataProvider>
   );

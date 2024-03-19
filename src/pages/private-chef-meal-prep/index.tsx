@@ -26,6 +26,8 @@ import React, { useEffect, useState } from "react";
 import { groupItemsBySubtitle } from "@/utils/groupSubTitles";
 import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
+import { useRestaurantData } from "@/context/RestaurantContext";
+
 
 interface CommonContentProps {
   Data: {
@@ -58,7 +60,6 @@ const RestaurantCommonContent = ({ Data, activeTab }: RestaurantDataItem) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
-  // console.log("DataRes", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
@@ -140,6 +141,12 @@ const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
   );
 };
 
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  return res.json();
+};
+
 const PrivateChefMealPrep = () => {
   const router = useRouter();
   const [currentPath, setCurrentPath] = useState("private-chef & meal-prep");
@@ -147,12 +154,9 @@ const PrivateChefMealPrep = () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [serviceProviders, setServiceProviders] = useState<string[]>([]);
   const [groupedData, setGroupedData] = useState<any[]>([]);
-  const [privateChefData, setPrivateChefData] = useState([]);
 
   const { getServiceDataByCategory } = useServicesDataContext();
-
-  //TODO: Remove typed link
-  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+  const { privateChefData } = useRestaurantData(); // Fetching data from context
 
   useEffect(() => {
     const fetchData = async () => {
@@ -163,13 +167,11 @@ const PrivateChefMealPrep = () => {
       const groupedData: any = groupItemsBySubtitle(restaurantData);
       setGroupedData(groupedData);
 
-      // Set tabs based on the `subTitle` key in each object of groupedData
       const tabKeys = Object.keys(groupedData).map(
         (key) => groupedData[key].subTitle
       );
       setTabs(tabKeys);
 
-      // If activeTab is not set, set it to the first tab
       if (activeTab === null && tabKeys.length > 0) {
         setActiveTab(tabKeys[0]);
       }
@@ -177,18 +179,7 @@ const PrivateChefMealPrep = () => {
     fetchData();
   }, [getServiceDataByCategory, activeTab]);
 
-  //Fetch serviceProvider/Restaurant data
-  const fetchData = async () => {
-    const res = await fetch(`${baseUrl}/api/provider`);
-
-    const data = await res.json();
-
-    const RestaurantData = data.data;
-
-    setPrivateChefData(RestaurantData);
-  };
-  fetchData();
-
+ 
   const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
     setActiveTab(tab);
@@ -229,7 +220,6 @@ const PrivateChefMealPrep = () => {
       </StyledBottomNavbar>
       <AdsSection />
 
-      {/* Render content based on activeTab */}
       {activeTab === "Restaurant" && serviceProviders ? (
         <RestaurantCommonContent Data={privateChefData} activeTab={activeTab} />
       ) : (
