@@ -1,13 +1,11 @@
 import React from "react";
 import Commons from "./Common";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
-import { title } from "process";
 
 export const filterDataByTag = (tag: string, data: any) => {
   if (data) {
     return data?.services.filter((item: any) => {
       return item.tag?.includes(tag);
-      console.log("Item is", item.tag);
     });
   }
 };
