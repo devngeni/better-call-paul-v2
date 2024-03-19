@@ -104,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setActiveIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % items.length;
+        const nextIndex = (prevIndex + 1) % items?.length;
         scrollToItem(nextIndex);
         return nextIndex;
       });
@@ -115,7 +115,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
         clearInterval(intervalRef.current);
       }
     };
-  }, [items.length]);
+  }, [items?.length]);
 
   useEffect(() => {
     scrollToItem(activeIndex);
@@ -125,7 +125,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
     <CarouselWrapper>
       <QuickActions />
       <CarouselContainer ref={carouselRef}>
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <CarouselItem key={item.id} onClick={() => setActiveIndex(index)}>
             <ITemImage>
               <Image
@@ -140,7 +140,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
         ))}
       </CarouselContainer>
       <DotsContainer>
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <Dot
             key={item.id}
             $active={index === activeIndex}

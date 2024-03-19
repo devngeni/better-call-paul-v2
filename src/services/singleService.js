@@ -99,7 +99,7 @@ class SingleService {
   }   
 }
 
-const singleService = new SingleService('http://localhost:3000')
+const singleService = new SingleService(process.env.NEXT_PUBLIC_BASE_URL)
 
 module.exports = {
   singleService

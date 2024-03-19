@@ -24,7 +24,13 @@ export default async function handler(
         const chains = await ServicesModel.find({ service_id: id }).populate(
           "service_id"
         );
-        return res.status(200).json({ success: true, data: chains });
+        return res
+          .status(200)
+          .json({
+            success: true,
+            serviceProvider: serviceProvider,
+            data: chains,
+          });
       } catch (e) {}
     } else if (req.method === "PUT" || req.method === "PATCH") {
       const serviceProviderToUpdate = await ServiceProviderModel.findById(id);
