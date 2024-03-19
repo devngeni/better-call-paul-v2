@@ -104,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({ items }) => {
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setActiveIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % items.length;
+        const nextIndex = (prevIndex + 1) % items?.length;
         scrollToItem(nextIndex);
         return nextIndex;
       });
