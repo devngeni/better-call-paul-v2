@@ -42,36 +42,78 @@ interface CommonContentProps {
   activeTab: string | null;
 }
 
-interface PrivateChefDataItem {
-  category: string;
-  content: any[];
-  service_id: string[];
-  subTitle: string;
-  tag: string;
+interface RestaurantDataItem {
+  Data: {
+    id: string;
+    title: string;
+    description: string;
+    image: string;
+  }[];
+  activeTab: string | null;
 }
 
-const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
+const RestaurantCommonContent = ({ Data, activeTab }: RestaurantDataItem) => {
   const router = useRouter();
   const handleRoute = (slug: string) => {
     router.push(`/private-chef-meal-prep/${generateSlug(slug)}`);
   };
 
-  console.log("Data4", Data);
+  // console.log("DataRes", Data);
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
         <HotelWrapper itemCount={Data.length} key={item._id}>
-         <Hotel
-              src={item.image || item.imagePath}
-              content={item.name || item.title}
-              description={item.description}
-              info={item.whatsAppDraftMsg}
-              handleSeeMenuButtonClick={() => handleRoute(item.title)} // Pass the function here
-              seeWhatsappBtn={item.seeWhatsappBtn}
-              WhatsAppBtnText={item.WhatsAppBtnText}
-              seeMenuBtn={item.seeMenuBtn}
-            />
-       
+          <Hotel
+            id={item._id}
+            src={item.image}
+            content={item.title}
+            description={item.description}
+            handleSeeMenuButtonClick={() => handleRoute(item._id)}
+            seeMenuBtn={true}
+            seeWhatsappBtn={true}
+          />
+
+          {item.showImage && (
+            <div
+              className="image-at-private-chef"
+              style={{
+                margin: "0 2% 10px 2%",
+                width: "calc(100% - 4%)",
+                height: "220px",
+                position: "relative",
+                borderRadius: "4px",
+              }}
+            >
+              <Image
+                src={item.adImage}
+                alt="adImage"
+                placeholder="blur"
+                blurDataURL={item.adImage}
+                layout="fill"
+              />
+            </div>
+          )}
+        </HotelWrapper>
+      ))}
+    </HotelContainer>
+  );
+};
+
+const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
+
+  return (
+    <HotelContainer className="image-resize">
+      {Data?.map((item: any, index: any) => (
+        <HotelWrapper itemCount={Data.length} key={item._id}>
+          <Hotel
+            src={item.image || item.imagePath}
+            content={item.name || item.title}
+            description={item.description}
+            info={item.whatsAppDraftMsg}
+            seeWhatsappBtn={false}
+            WhatsAppBtnText={item.WhatsAppBtnText}
+          />
+
           {item.showImage && (
             <div
               className="image-at-private-chef"
@@ -106,61 +148,19 @@ const PrivateChefMealPrep = () => {
   const [serviceProviders, setServiceProviders] = useState<string[]>([]);
   const [groupedData, setGroupedData] = useState<any[]>([]);
   const [privateChefData, setPrivateChefData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const { getServiceDataByCategory } = useServicesDataContext();
 
+  //TODO: Remove typed link
   const baseUrl = process.env.BASE_URL || "http://localhost:3000";
 
   useEffect(() => {
     const fetchData = async () => {
-      const privateChefData = getServiceDataByCategory(
+      const restaurantData = getServiceDataByCategory(
         CATEGORIES.restaurantAndChef
       );
 
-      console.log("privateChef", privateChefData);
-
-      // Extracting unique service_ids from privateChefData
-      const uniqueServiceIds: any = Array.from(
-        new Set(
-          privateChefData.reduce((acc: string[], item: PrivateChefDataItem) => {
-            // Ensure service_id is an array
-            if (Array.isArray(item.service_id)) {
-              // Concatenate existing service_id with new ones
-              acc.push(...item.service_id);
-            }
-            return acc;
-          }, [])
-        )
-      ).filter((id) => id && typeof id === "string" && id.trim() !== "");
-
-      console.log("filteredUniqueServiceIds", uniqueServiceIds);
-      try {
-        const responses = await Promise.all(
-          uniqueServiceIds.map(async (id: string) => {
-            const res = await fetch(`${baseUrl}/api/provider?id=${id}`);
-            if (!res.ok) {
-              throw new Error(`Failed to fetch provider data for id ${id}`);
-            }
-            return res.json();
-          })
-        );
-        console.log("responses", responses);
-        const data: any = responses.flatMap((response: any) => response.data);
-        const uniqueData: any = Array.from(
-          new Set(data.map((item: any) => item._id))
-        ).map((id) => {
-          return data.find((item: any) => item._id === id);
-        });
-        setPrivateChefData(uniqueData);
-        console.log("privateChefData", uniqueData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-
-      const groupedData: any = groupItemsBySubtitle(privateChefData);
+      const groupedData: any = groupItemsBySubtitle(restaurantData);
       setGroupedData(groupedData);
 
       // Set tabs based on the `subTitle` key in each object of groupedData
@@ -172,11 +172,22 @@ const PrivateChefMealPrep = () => {
       // If activeTab is not set, set it to the first tab
       if (activeTab === null && tabKeys.length > 0) {
         setActiveTab(tabKeys[0]);
-        console.log("activeTab", tabKeys[0]); // Log the active tab for debugging
       }
     };
     fetchData();
   }, [getServiceDataByCategory, activeTab]);
+
+  //Fetch serviceProvider/Restaurant data
+  const fetchData = async () => {
+    const res = await fetch(`${baseUrl}/api/provider`);
+
+    const data = await res.json();
+
+    const RestaurantData = data.data;
+
+    setPrivateChefData(RestaurantData);
+  };
+  fetchData();
 
   const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
@@ -220,7 +231,7 @@ const PrivateChefMealPrep = () => {
 
       {/* Render content based on activeTab */}
       {activeTab === "Restaurant" && serviceProviders ? (
-        <CommonContent Data={privateChefData} activeTab={activeTab} />
+        <RestaurantCommonContent Data={privateChefData} activeTab={activeTab} />
       ) : (
         <CommonContent
           Data={
