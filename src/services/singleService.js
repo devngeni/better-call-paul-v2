@@ -99,7 +99,7 @@ class SingleService {
   }   
 }
 
-const singleService = new SingleService(process.env.BASE_URL)
+const singleService = new SingleService(process.env.NEXT_PUBLIC_BASE_URL)
 
 module.exports = {
   singleService
