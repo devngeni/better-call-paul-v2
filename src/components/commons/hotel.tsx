@@ -37,6 +37,7 @@ export const ImageCover = styled.div`
 `;
 
 interface HotelProps {
+  id?: string;
   src: StaticImageData | any;
   content: string;
   price?: number;
@@ -184,13 +185,11 @@ const Hotel = ({
       </HotelContent>
       <HotelBtn>
         {seeMenuBtn && (
-          <BookButton
-            onClick={handleSeeMenuButtonClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            See Menu
-          </BookButton>
+         <SeeMenuBtn
+         handleSeeMenuButtonClick={handleSeeMenuButtonClick}
+         btnText="See Menu"
+         style={{ }}
+       />
         )}
         {!seeWhatsappBtn && (
           <WhatsAppBtn

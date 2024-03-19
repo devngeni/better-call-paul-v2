@@ -59,14 +59,6 @@ const ServiceItemSchema: Schema = new Schema<IServiceItem>({
   ],
 });
 
-// ServiceItemSchema.pre(/^find/, (next) => {
-//   this.populate({
-//     path: "service_id",
-//     model: ServiceProviderModel,
-//   });
-//   next();
-// });
-
 const ServiceItemsModel =
   mongoose.models.ServiceItems ||
   mongoose.model<IServiceItem>("ServiceItems", ServiceItemSchema);
