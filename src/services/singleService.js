@@ -2,6 +2,7 @@ class SingleService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
   }
+  
   async fetchServiceDetails(slug) {
     if (
       slug === "Toyota Noah" ||
