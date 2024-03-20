@@ -54,10 +54,10 @@ export default function Layout({
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Better Call Paul" />
         <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:description" content={defaultDescription} />
         <meta
           property="og:image"
-          content="https://www.bettercallpaul.world/DealsImages/bgLogo.jpg"
+          content={imageUrl}
           key="ogImage"
         />
         <meta
