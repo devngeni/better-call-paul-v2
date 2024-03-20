@@ -24,7 +24,7 @@ export const FooterLinksList: SectionType[] = [
       links:[
         {name: "Tours & Experiences", url:"/tour-and-experience"},
         {name: "Travel Concierge & Services", url:"/travel-and-coincierge"},
-        {name: "Private chef & Meal Prep", url:"/services/private-chef"},
+        {name: "Private chef & Meal Prep", url:"/private-chef-meal-prep"},
         {name: "Drinks", url:"/drinks"},
         {name: "Wellness & Grooming", url:"/fitness-and-wellness"},
         {name: "Shopping & grocery runs", url:"/services/shopping"},
