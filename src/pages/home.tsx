@@ -13,6 +13,17 @@ import {
 import AboutSection from "@/components/landingpage/AboutSection";
 import ContactUs from "@/components/landingpage/ContactUs";
 import { Layout } from "@/layout";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Welcome to BCP - Better Call Paul',
+  description: 'One Touch All Service from meals to wheels and beyond',
+  openGraph: {
+    images: [
+      { url: 'https://www.bettercallpaul.world/DealsImages/bgLogo.jpg', alt: 'BCP Logo' }
+    ],
+  },
+};
 
 export default function Home() {
   return (
