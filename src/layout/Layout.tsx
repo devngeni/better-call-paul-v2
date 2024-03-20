@@ -17,12 +17,12 @@ export default function Layout({
   const defaultTitle =
     "Better Call Paul - Kenya's Best Homestay Concierge Services";
   const defaultDescription =
-    "We provide fast, quality and essential services like Tours &#x26; travel, Property Management, Food, Private Chef &#x26; Meal Prep, Wellness and Grooming, Shopping &#x26; grocery runs from the comfort of your Home";
+    "We provide fast, quality and essential services like Tours & travel, Property Management, Food, Private Chef & Meal Prep, Wellness and Grooming, Shopping & grocery runs from the comfort of your Home";
   return (
     <>
       <Head>
         <title>{defaultTitle}</title>
-        <meta name="description" content={defaultDescription} />
+        <meta name="description" content="We provide fast, quality and essential services like Tours & travel, Property Management, Food, Private Chef & Meal Prep, Wellness and Grooming, Shopping & grocery runs from the comfort of your Home" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -53,14 +53,14 @@ export default function Layout({
         <meta property="og:type" content="website" />
         <meta property="og:url" content={websiteUrl} />
         <meta property="og:title" content={defaultTitle} />
-        <meta property="og:description" content={defaultDescription} />
-        <meta property="og:image" content={imageUrl} />
+        <meta property="og:description" content="We provide fast, quality and essential services like Tours & travel, Property Management, Food, Private Chef & Meal Prep, Wellness and Grooming, Shopping & grocery runs from the comfort of your Home" />
+        <meta property="og:image" content="https://www.bettercallpaul.world/favicon/android-chrome-192x192.png" />
 
         <meta
           name="twitter:image"
           content="https://www.bettercallpaul.world/DealsImages/bgLogo.jpg"
         />
-        <meta property="og:image:alt" content="My custom alt" />
+        <meta property="og:image:alt" content="bcp logo" />
 
         <meta property="og:site_name" content="Better Call Paul" />
 
@@ -68,7 +68,7 @@ export default function Layout({
 
         <meta name="twitter:card" content="summary" />
 
-        <meta name="twitter:image" content={imageURl} />
+        <meta name="twitter:image" content="https://www.bettercallpaul.world/favicon/android-chrome-192x192.png" />
 
         <meta name="twitter:image:alt" content="Better Call Paul" />
       </Head>
