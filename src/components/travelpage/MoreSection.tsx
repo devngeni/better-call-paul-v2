@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import { CommonWrapper } from "@/styles/commons";
 import { Arrow } from "../../../public/Icons";
+import Link from "next/link";
 
 const SectionContainer = styled.section`
   overflow-x: auto;
@@ -13,12 +14,14 @@ const SectionContainer = styled.section`
   border: 1px dashed #333;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   scroll-snap-type: x mandatory;
+  position: relative;
   &::-webkit-scrollbar {
     display: none;
   }
+
   @media screen and (max-width: 768px) {
     padding: 20px;
     width: 100%;
@@ -50,6 +53,7 @@ const Card = styled.div<{ $backgroundColor: string }>`
   justify-content: center;
   padding: 30px;
   gap: 20px;
+  cursor: pointer;
   > * {
     max-height: 100%;
     overflow: hidden;
@@ -80,6 +84,11 @@ const StoreName = styled.h3`
   font-family: ${(props) => props.theme.fontFace.fonts.poppins};
   font-size: 16px;
   font-weight: 800;
+  margin-bottom: 5px;
+  min-height: 60px;
+  @media screen and (max-width: 768px) {
+    min-height: 80px;
+  }
 `;
 const CardImage = styled.div`
   position: relative;
@@ -98,10 +107,12 @@ const ArrowIcon = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
+  cursor: pointer;
   &:hover {
     color: #000;
   }
 `;
+
 interface SectionProps {
   imageSrc: string;
   text: string;
@@ -120,7 +131,8 @@ interface MoreSectionProps {
 }
 
 const DescriptionContainer = styled.div<{ $expanded: boolean }>`
-  max-height: ${({ $expanded }) => ($expanded ? "100%" : "150px")};
+  min-height: ${({ $expanded }) => ($expanded ? "100%" : "80px")};
+  max-height: auto;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: max-height 0.3s ease;
@@ -134,25 +146,69 @@ const DescriptionContainer = styled.div<{ $expanded: boolean }>`
     text-decoration: underline;
     color: blue;
   }
+  @media screen and (max-width: 768px) {
+    min-height: ${({ $expanded }) => ($expanded ? "100%" : "150px")};
+  }
+`;
+
+const Dots = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+const Dot = styled.span<{ isActive: boolean }>`
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: ${(props) => (props.isActive ? "#333" : "#ccc")};
+  margin: 0 5px;
+  cursor: pointer;
 `;
 
 const MoreSection: React.FC<MoreSectionProps> = ({
   title,
   sections,
   width = 180,
-  height = 180,
+  height = 180
 }) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const toggleExpanded = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
+    if (containerRef.current) {
+      const cardWidth =
+        containerRef.current.querySelector("div")?.offsetWidth || 0;
+      containerRef.current.scrollLeft = index * cardWidth;
+    }
+  };
+  const handleWhatsappClick = (index: number) => {
+    const section = sections[index];
+    const message = `Hello, I am interested in the following: ${section.text}`;
+    const url = `https://api.whatsapp.com/send?phone=+254794701568&text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(url);
   };
 
   return (
     <CommonWrapper>
       <SectionTitle>{title}</SectionTitle>
-      <SectionContainer>
+      <SectionContainer ref={containerRef}>
         {sections.map((section, index) => (
-          <Card key={index} $backgroundColor={section.bgColor}>
+          <Card
+            key={index}
+            $backgroundColor={section.bgColor}
+            onClick={() => {
+              handleWhatsappClick(index);
+            }}
+          >
             <CardImage>
               <Image
                 src={section.imageSrc}
@@ -198,12 +254,22 @@ const MoreSection: React.FC<MoreSectionProps> = ({
                 </>
               )}
             </DescriptionContainer>
-            <ArrowIcon>
-              <Arrow />
-            </ArrowIcon>
+
+            {/* <ArrowIcon>
+                <Arrow />
+              </ArrowIcon> */}
           </Card>
         ))}
       </SectionContainer>
+      <Dots>
+        {sections.map((_, index) => (
+          <Dot
+            key={index}
+            isActive={index === currentIndex}
+            onClick={() => handleDotClick(index)}
+          />
+        ))}
+      </Dots>
     </CommonWrapper>
   );
 };
