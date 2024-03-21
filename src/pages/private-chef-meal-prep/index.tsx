@@ -28,7 +28,6 @@ import { CATEGORIES } from "../../../constants";
 import { useServicesDataContext } from "@/context/GetServicesDataContext";
 import { useRestaurantData } from "@/context/RestaurantContext";
 
-
 interface CommonContentProps {
   Data: {
     imagePath: string;
@@ -101,7 +100,6 @@ const RestaurantCommonContent = ({ Data, activeTab }: RestaurantDataItem) => {
 };
 
 const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
-
   return (
     <HotelContainer className="image-resize">
       {Data?.map((item: any, index: any) => (
@@ -141,7 +139,6 @@ const CommonContent = ({ Data, activeTab }: CommonContentProps) => {
   );
 };
 
-
 const fetcher = async (url: string) => {
   const res = await fetch(url);
   return res.json();
@@ -157,7 +154,7 @@ const PrivateChefMealPrep = () => {
 
   const { getServiceDataByCategory } = useServicesDataContext();
   const { privateChefData } = useRestaurantData(); // Fetching data from context
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const restaurantData = getServiceDataByCategory(
@@ -179,7 +176,6 @@ const PrivateChefMealPrep = () => {
     fetchData();
   }, [getServiceDataByCategory, activeTab]);
 
- 
   const getActiveTabAndPath = (tab: string) => {
     setCurrentPath(tab);
     setActiveTab(tab);
