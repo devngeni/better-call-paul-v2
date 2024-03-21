@@ -21,11 +21,6 @@ export const MuseumExperienceData = {
 
     
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Museum1.webp" },
-    { id: 2, imageUrl: "/DealsImages/Museum2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Museum3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "Immerse yourself in Nairobi's cultural tapestry with our Half-Day Nairobi Cultural Experience, focusing on the rich exhibits of the Nairobi National Museum.",

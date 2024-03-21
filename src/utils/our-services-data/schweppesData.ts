@@ -1,8 +1,5 @@
 export const SchweppesData = {
   introSectionTitle: "Schweppes Ginger Ale 330 ml",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Schweppes.webp", width: 100, height: 150 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 1.93,

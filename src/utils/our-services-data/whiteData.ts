@@ -1,8 +1,5 @@
 export const WhiteCapData = {
   introSectionTitle: "White Cap Can ",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/whiteCap.webp", width: 300, height: 200 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

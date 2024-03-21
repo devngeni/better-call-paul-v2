@@ -1,8 +1,6 @@
 export const SpriteCanData = {
   introSectionTitle: "Sprite can 330 ml",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/SpriteCan.webp", width: 100, height: 100 }
-  ],
+
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 1.93,

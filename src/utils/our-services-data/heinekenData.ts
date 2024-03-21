@@ -1,8 +1,5 @@
 export const HeinekenData = {
   introSectionTitle: "Heineken",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/heineken.webp", width: 150, height: 200 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

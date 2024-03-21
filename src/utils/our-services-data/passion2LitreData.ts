@@ -1,8 +1,5 @@
 export const Passion2LitreData = {
   introSectionTitle: "Fanta Passion 2 litres",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/fanta1.webp", width: 100, height: 100 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

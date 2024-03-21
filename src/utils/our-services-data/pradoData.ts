@@ -18,11 +18,6 @@ export const PradoData = {
       price: 1600,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Prado.png" },
-    { id: 2, imageUrl: "/DealsImages/Prado.png" },
-    { id: 3, imageUrl: "/DealsImages/Prado.png" },
-  ],
   productDetailsTitle: "About the Car hire service",
   productDetailsText:
     "We ensure you move with ease and comfort. Drive your way. We're your wheels on the road to fun.",

@@ -14,11 +14,6 @@ export const ChaufferedV8Data = {
       price: 85,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/V8.png" },
-    { id: 2, imageUrl: "/DealsImages/V8.png" },
-    { id: 3, imageUrl: "/DealsImages/V8.png" },
-  ],
   productDetailsTitle: "Chauffer Service",
   productDetailsText:
     "We ensure you move with ease and comfort .Drive your way. We're your wheels on the road to fun.",

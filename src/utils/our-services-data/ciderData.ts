@@ -1,8 +1,5 @@
 export const TuskerCiderData = {
   introSectionTitle: "Tusker Cider Can ",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Cider.webp", width: 210, height: 200 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,
