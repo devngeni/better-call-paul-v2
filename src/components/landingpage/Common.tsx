@@ -23,13 +23,20 @@ interface Props {
 }
 
 const Commons: React.FC<Props> = ({ title, images }) => {
+
+  const handleBookButtonClick = (item: any) => {
+    const inquiryText = `I would like to inquire more about ${item.title}`;
+    const url = `https://api.whatsapp.com/send?phone=+254794701568&text=${encodeURIComponent(inquiryText)} at $${item.cost}`;
+    window.open(url);
+  };
+
   return (
     <DealSectionContainer>
       <DealsWrapper>
         <CardTitle>{title}</CardTitle>
         <DealsBox>
           {images?.map((item, index) => (
-            <ImageContainer key={index}>
+            <ImageContainer key={index} onClick={() => handleBookButtonClick(item)}>
               <Image
                 src={item.image}
                 width={280}
@@ -43,7 +50,7 @@ const Commons: React.FC<Props> = ({ title, images }) => {
                 </Fade>
                 <Fade direction="up">
                   <ImageCost>
-                  Starts at: <PriceDisplay price={Number(item.cost)} />
+                    Starts at: <PriceDisplay price={Number(item.cost)} />
                   </ImageCost>
                 </Fade>
               </ImageContent>
