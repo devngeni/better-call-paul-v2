@@ -10,13 +10,18 @@ import { CardContainer } from "@/styles/commons";
 import AdsSection from "@/styles/landingPageStyles/Ads";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BottomNavigation from "@/components/Navbar/BottomNav";
 
 export default function SlugPage({ data }: any) {
   const router = useRouter();
   const { foodItem } = router.query;
-  const [currentPath] = useState(foodItem as string);
+
+  const [currentPath, setCurrentPath] = useState(""); // State to hold current path
+  const [productName, setProductName] = useState("");
+
+  
+  // const [currentPath] = useState(foodItem as string);
   const handleBack = () => router.back();
 
   const handleClick = () => {
@@ -57,6 +62,21 @@ export default function SlugPage({ data }: any) {
     handleAddToCart(product);
   };
 
+    // Set productName when the component mounts
+    useEffect(() => {
+      // Fetch data directly and await the result
+      const fetchData = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/provider/${foodItem}`);
+        const fetchedDataById = await res.json();
+  
+        // Extract productName from the fetched data
+        const productName = fetchedDataById.serviceProvider?.title || "";
+        setProductName(productName);
+      };
+  
+      fetchData();
+    }, [foodItem]);
+
   return (
     <Layout
       title="Private Chef & Meal Prep"
@@ -66,7 +86,7 @@ export default function SlugPage({ data }: any) {
       footer={<Footer />}
       bottomNav={<BottomNavigation />}
     >
-      <TopNavbar currentSelection={currentPath} onBack={handleBack} />
+      <TopNavbar currentSelection={productName}  onBack={handleBack} />
       <HeroSection
         backgroundImage={
           "/privateChefImages/well-done-steak-homemade-potatoes.jpg"
@@ -90,18 +110,19 @@ export default function SlugPage({ data }: any) {
                   price={contentItem.price}
                   productName={contentItem.name}
                   quantity={0}
-                  category={currentPath}
+                  category={productName}
                   onAddToCart={prepareAddToCart({
                     id: contentIndex,
                     name: contentItem.name,
                     price: Number(contentItem.price),
                     image: contentItem.imagePath,
-                    category: currentPath,
+                    category: productName,
                     quantity: 1,
                   })}
                   handleClick={handleClick}
                   isLoading={false}
                   loading={false}
+                  
                 />
               </CardContainer>
             ))}
@@ -115,7 +136,6 @@ export default function SlugPage({ data }: any) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { foodItem } = context.query;
 
-  // Fetch data directly and await the result
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/provider/${foodItem}`);
   const fetchedDataById = await res.json();
 

@@ -14,7 +14,7 @@ import {
 } from "@/types/datatypes";
 import { useRouter } from "next/router";
 import { BookSection } from "../commons";
-import { useEffect, useState } from "react";
+
 export interface TripsDetailsPageProps {
   introSectionTitle: string;
   introSectionContent?: string;
