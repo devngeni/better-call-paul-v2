@@ -25,6 +25,6 @@ const ServiceProviderSchema: Schema = new Schema<IServiceProvider>({
 
 const ServiceProviderModel =
   mongoose.models.ServiceProviders ||
-  mongoose.model<IServiceProvider>("ServiceProviders", ServiceProviderSchema); // Updated model name and type
+  mongoose.model<IServiceProvider>("ServiceProviders", ServiceProviderSchema);
 
 export default ServiceProviderModel;

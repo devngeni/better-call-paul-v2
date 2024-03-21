@@ -15,12 +15,6 @@ export const ChaufferedNoahData = {
       price: 85,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Alphard.png" },
-    { id: 2, imageUrl: "/DealsImages/Noah.webp" },
-    { id: 3, imageUrl: "/DealsImages/Alphard.png" },
-    { id: 2, imageUrl: "/DealsImages/Noah.webp" },
-  ],
   productDetailsTitle: "Chauffer Service",
   productDetailsText:
     "We ensure you move with ease and comfort .Drive your way. We're your wheels on the road to fun.",

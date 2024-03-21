@@ -20,11 +20,6 @@ export const NairobiCulturalWildLifeData = {
       price: 0,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Wildlife1.webp" },
-    { id: 2, imageUrl: "/DealsImages/Wildlife2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Wildlife3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "The Half-Day Nairobi Cultural Experience offers a condensed yet memorable journey, bringing you face-to-face with the iconic Rothschild giraffes and immersing you in the vibrant world of Kenyan beadwork. From the Giraffe Center's unique conservation efforts to the artistry at the Kazuri Beads Factory, this experience promises a cultural adventure that fits seamlessly into your schedule.",

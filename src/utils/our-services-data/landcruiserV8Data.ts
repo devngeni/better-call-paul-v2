@@ -17,11 +17,6 @@ export const ToyotaLandcruiserV8Data = {
       price: 2500,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/LR.png" },
-    { id: 2, imageUrl: "/LR.png" },
-    { id: 3, imageUrl: "/LR.png" },
-  ],
   productDetailsTitle: "About the Car hire service",
   productDetailsText:
     "We ensure you move with ease and comfort .Drive your way. We're your wheels on the road to fun.",

@@ -1,8 +1,5 @@
 export const VapeData = {
   introSectionTitle: "5000 puffs Rechargeable Vape",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Vape.webp", width: 250, height: 200 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 14.29,

@@ -1,8 +1,5 @@
 export const CokeCanData = {
   introSectionTitle: "Coke can 330 ml",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/CokeCan.webp", width: 100, height: 100 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

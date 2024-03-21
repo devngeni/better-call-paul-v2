@@ -1,8 +1,5 @@
 export const CokeZero2LitreData = {
   introSectionTitle: "Coke Zero 2 litres",
-  swipperData: [
-    { id: 1, imageUrl: "/DrinkImages/CokeZero2.jpg", width: 100, height: 100 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 1.93,

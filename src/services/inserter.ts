@@ -1,4 +1,3 @@
-import { lookupService } from "dns/promises";
 import ServiceItem from "../../models/service.model";
 
 export class Service {

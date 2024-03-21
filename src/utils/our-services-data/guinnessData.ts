@@ -1,8 +1,5 @@
 export const GuinnessCanData = {
   introSectionTitle: "Guinness Can ",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Guinness.webp", width: 200, height: 250 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

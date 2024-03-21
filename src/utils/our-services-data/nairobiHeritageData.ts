@@ -19,11 +19,6 @@ export const NairobiHeritageExperienceData = {
       price: 0,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Heritage1.webp" },
-    { id: 2, imageUrl: "/DealsImages/Heritage2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Heritage3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "The NAIROBI HERITAGE EXPERIENCE offers a dynamic blend of cultural exploration, historical insights, and the vibrant atmosphere of Masai Market. From the Nairobi National Museum to the Snake Park and the lively market, each stop contributes to a day filled with appreciation for Kenya's rich heritage.",

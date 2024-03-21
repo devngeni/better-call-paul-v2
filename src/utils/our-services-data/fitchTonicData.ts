@@ -1,8 +1,6 @@
 export const FitchTonicData = {
   introSectionTitle: "Fitch & Leedes Pink Tonic 200 ml",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Fitch.webp", width: 100, height: 150 }
-  ],
+
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

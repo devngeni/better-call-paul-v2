@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const DealSectionContainer = styled.section`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   width: max-content;
   padding: 3% 0;
   margin: 3% 0;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   @media screen and (min-width: 768px) {
     width: 100%;
   }
@@ -15,6 +15,7 @@ export const DealSectionContainer = styled.section`
 
 export const DealsWrapper = styled.div`
   width: max-content;
+
   @media screen and (min-width: 768px) {
     display: flex;
     flex-direction: column;
@@ -42,10 +43,13 @@ export const DealsBox = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-
+  width: 80%;
+  overflow-y: auto;
+  padding: 0 1rem;
+  border-radius: 15px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media screen and (max-width: 768px) {
     display: flex;
     overflow-x: scroll;
@@ -73,7 +77,6 @@ export const ImageContainer = styled.div`
     rgba(0, 30, 43, 0.12) 0px 13px 22px;
   transition: all 0.3s ease-in-out;
   max-width: 400px;
-
   img {
     border-radius: 0.5rem 0.5rem 0 0;
     object-fit: cover;

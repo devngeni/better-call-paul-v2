@@ -35,7 +35,6 @@ const DrinkSection = ({ drinksData }: any) => {
         activeTab={currentSelection}
         updateActiveTab={handleSelectionChange}
         tabs={menuItems}
-        // tourData={drinkdata}
         tourData={drinksData}
       />
     </>
