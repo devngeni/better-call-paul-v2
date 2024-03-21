@@ -1,5 +1,6 @@
+import { set } from "mongoose";
 import { createContext, useContext } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 interface ServicesDataContextProps {
   getServiceDataByCategory: (category: string) => any;
@@ -14,6 +15,7 @@ export const ServicesDataContext = createContext(
 
 const fetcher = async (url: string) => {
   const response = await fetch(url);
+
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -32,7 +34,11 @@ export function useServicesDataContext() {
 }
 
 export const ServicesDataProvider = ({ children }: any) => {
-  const { data, error, isLoading } = useSWR("api/service", fetcher);
+  const { data, error, isLoading } = useSWR("api/service", fetcher, {
+    refreshInterval: 60000,
+  });
+
+  //refecth data every 5 minutes
 
   //Prints all data from DB
   // console.log("data", data);

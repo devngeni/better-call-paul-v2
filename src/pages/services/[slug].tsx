@@ -309,7 +309,7 @@ const fetchDataBasedOnSlug = async (
               {
                 question: "Initial Contact",
                 answer:
-                  "Contact BCP Property Management through [Contact Information] to express your interest in enlisting our services.",
+                  "Contact BCP Property Management through +254794701568 to express your interest in enlisting our services.",
                 answer2:
                   "Provide essential property details, including location, type, and any specific requirements.",
               },
@@ -616,7 +616,7 @@ const fetchDataBasedOnSlug = async (
               {
                 question: "Ordering Process:",
                 answer:
-                  "Contact our shopping service team through [Contact Information]. Clearly communicate your shopping list, including any specific preferences or brands.",
+                  "Contact our shopping service team through +254794701568. Clearly communicate your shopping list, including any specific preferences or brands.",
               },
               {
                 question: "Delivery Location:",
@@ -666,7 +666,7 @@ const fetchDataBasedOnSlug = async (
               {
                 question: "How do I place an order?",
                 answer:
-                  "Contact our shopping service team through [Contact Information] to place your order.",
+                  "Contact our shopping service team through +254794701568 to place your order.",
               },
               {
                 question:
@@ -730,7 +730,7 @@ const fetchDataBasedOnSlug = async (
               {
                 question: "Inquire",
                 answer:
-                  "Contact our concierge team through [Contact Information] to inquire about the availability of rentable items",
+                  "Contact our concierge team through +254794701568 to inquire about the availability of rentable items",
               },
               {
                 question: "Specify Your Needs",
@@ -776,7 +776,7 @@ const fetchDataBasedOnSlug = async (
               {
                 question: "How do I inquire about rentable items?",
                 answer:
-                  "Contact our concierge team through [Contact Information] to inquire about the availability and booking process.",
+                  "Contact our concierge team through +254794701568 to inquire about the availability and booking process.",
               },
 
               {
