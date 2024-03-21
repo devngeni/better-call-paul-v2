@@ -8,6 +8,9 @@ export interface LayoutProps {
   data?: any;
   imageURl?: any;
   navigationbar?: React.ReactNode;
+  defaultTitle?: string;
+  websiteUrl?: string;
+  defaultDescription?: string;
 }
 
 export interface NavProps {
