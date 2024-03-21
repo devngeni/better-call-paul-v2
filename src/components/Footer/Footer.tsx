@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   Facebook,
@@ -48,18 +48,19 @@ const socialLinks = [
 
 function Footer() {
   const [email, setEmail] = React.useState("");
-  //const formSpreeUrl = "https://formspree.io/f/xoqogweg";
-  const [state, handleSubmit] = useForm("moqgnpyl");
+  const formSpreeUrl = "https://formspree.io/f/xoqogweg";
+  const [state, handleSubmit, reset] = useForm("moqgnpyl");
+
+  if (state.succeeded) {
+     alert("Submitted successfully")
+     reset()
+  }
+
 
   const openInNewTab = (url: string) => {
     window.open(url, "_blank");
   };
 
-  if (state.succeeded) {
-      return alert("Submitted successfully") 
-  }
-
- 
   return (
     <FWrapper>
       <FooterContainer>
@@ -79,18 +80,18 @@ function Footer() {
             ))}
           </FooterLinksContainer>
 
-          <FJoinContainer onSubmit={handleSubmit} >
+          <FJoinContainer onSubmit={handleSubmit}>
             <FooterLinksHeading>Join us on</FooterLinksHeading>
             <JoinParagraph>
               We don&#39;t send spam so don&#39;t worry
             </JoinParagraph>
-            <SubscribeContainer >
+            <SubscribeContainer>
               <Input
                 type="email"
                 placeholder="Email..."
-                name="email"
                 required
                 value={email}
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Input type="hidden" name="message" value="Hi! Could you please provide me with information regarding your service offerings, including any packages or specializations available? Additionally, I'd like to know if there are any ongoing promotions or discounts for new clients." />
