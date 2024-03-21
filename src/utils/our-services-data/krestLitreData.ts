@@ -1,8 +1,5 @@
 export const KrestLitreData = {
   introSectionTitle: "Krest 1 litre",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Krest1.webp", width: 100, height: 100 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

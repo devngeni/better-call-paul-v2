@@ -19,11 +19,6 @@ export const NairobiSafariExperienceData = {
       price: 0,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Experience1.webp" },
-    { id: 2, imageUrl: "/DealsImages/Experience2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Experience3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "The NAIROBI SAFARI EXPERIENCE offers a perfect blend of nature, gastronomy, and culture. From the exhilarating morning game drive at Nairobi National Park to the unique dining experience at Carnivore, each moment is designed to leave you with unforgettable memories of Kenya's diverse and vibrant offerings.",

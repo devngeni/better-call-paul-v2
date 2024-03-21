@@ -88,7 +88,6 @@ import {
 } from "@/utils/our-services-data";
 import { reverseSlug } from "@/utils/reverseSlug";
 import { GetServerSideProps } from "next";
-import { useEffect, useState } from "react";
 
 const fetchDataBasedOnSlug = async (slug: string) => {
   let data: any = {};

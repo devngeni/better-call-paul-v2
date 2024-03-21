@@ -17,11 +17,6 @@ export const AxiosData = {
       price: 520,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/car.jpeg" },
-    { id: 2, imageUrl: "/DealsImages/Axios.webp" },
-    { id: 3, imageUrl: "/DealsImages/Axios.webp" },
-  ],
   productDetailsTitle: "About the Car hire service",
   productDetailsText:
     "We ensure you move with ease and comfort. Drive your way. We're your wheels on the road to fun.",

@@ -116,6 +116,7 @@ const CommonHotel: React.FC<commonHotelProps> = ({
   useEffect(() => {
     if (tabs.length > 0) {
       setActiveTab(tabs[0].name);
+      setCurrentSelection(tabs[0].name)
     }
   }, [tabs]);
 

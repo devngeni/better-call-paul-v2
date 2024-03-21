@@ -222,7 +222,6 @@ const fetchDataBasedOnSlug = async (
                 content: nannyData[0].content[0].name,
                 hotelDescription: nannyData[0].content[0].description,
                 image: nannyData[0].content[0].imagePath,
-                // price: nannyData[0].content[0].price,
                 info: "HelloPaul, looking for quality childcare. Can I explore your nanny services?",
               },
             ],

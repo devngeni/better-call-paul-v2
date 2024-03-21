@@ -1,8 +1,5 @@
 export const Fanta2LitresData = {
   introSectionTitle: "Fanta Pineapple 2 litres",
-  swipperData: [
-    { id: 1, imageUrl: "/DrinkImages/Pineapple2.jpg", width: 100, height: 100 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 2.14,

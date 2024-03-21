@@ -23,11 +23,6 @@ export const OutOfAfricaExperienceData = {
       price: 0,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/culture.webp" },
-    { id: 2, imageUrl: "/DealsImages/Culture2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Culture3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "Embark on an African adventure with the OUT OF AFRICA EXPERIENCE! Dive into the charm of the historic Karen neighbourhood, where every step is a journey through time. Get up close and personal with the majestic Rothschild giraffes, and unravel the tales of Karen Blixen, the legendary figure from the iconic movie, Out of Africa. Don't just visit, live the story!",

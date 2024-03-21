@@ -19,11 +19,6 @@ export const OutOfTownExperience = {
       price: 0,
     },
   ],
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/Como1.webp" },
-    { id: 2, imageUrl: "/DealsImages/Como2.webp" },
-    { id: 3, imageUrl: "/DealsImages/Como3.webp" },
-  ],
   productDetailsTitle: "Trip Details",
   productDetailsText:
     "Escape to serenity with our overnight retreat at Lake Naivasha Resort and Blooming Suites. Nestled by the tranquil Lake Naivasha, this getaway promises a perfect blend of relaxation, family activities, and natural beauty. Choose from a myriad of optional activities, including hippo watching, camel/horse rides, aqua Zumba, boat rides, and much more.",

@@ -1,8 +1,5 @@
 export const TangawiziData = {
   introSectionTitle: "Stoney Tangawizi 1 litre",
-  swipperData: [
-    { id: 1, imageUrl: "/DealsImages/stoney1.webp", width: 100, height: 120 }
-  ],
   productDetailsTitle: "Details",
   productDetailsText: "Drink content to go here...",
   price: 1.93,
