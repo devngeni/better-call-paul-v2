@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import Link from "next/link";
 import {
   Facebook,
@@ -29,6 +29,7 @@ import {
   FooterLink,
 } from "@/styles/footerStyles";
 import { FooterLinksList } from "./footerData";
+import { useForm, ValidationError } from '@formspree/react';
 
 
 const socialLinks = [
@@ -47,12 +48,18 @@ const socialLinks = [
 
 function Footer() {
   const [email, setEmail] = React.useState("");
-  const formSpreeUrl = "https://formspree.io/f/xoqogweg";
+  //const formSpreeUrl = "https://formspree.io/f/xoqogweg";
+  const [state, handleSubmit] = useForm("moqgnpyl");
 
   const openInNewTab = (url: string) => {
     window.open(url, "_blank");
   };
 
+  if (state.succeeded) {
+      return alert("Submitted successfully") 
+  }
+
+ 
   return (
     <FWrapper>
       <FooterContainer>
@@ -72,19 +79,21 @@ function Footer() {
             ))}
           </FooterLinksContainer>
 
-          <FJoinContainer action={formSpreeUrl} method="post">
+          <FJoinContainer onSubmit={handleSubmit} >
             <FooterLinksHeading>Join us on</FooterLinksHeading>
             <JoinParagraph>
               We don&#39;t send spam so don&#39;t worry
             </JoinParagraph>
-            <SubscribeContainer>
+            <SubscribeContainer >
               <Input
                 type="email"
                 placeholder="Email..."
+                name="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <Input type="hidden" name="message" value="Hi! Could you please provide me with information regarding your service offerings, including any packages or specializations available? Additionally, I'd like to know if there are any ongoing promotions or discounts for new clients." />
               <SubmitButton type="submit">Submit</SubmitButton>
             </SubscribeContainer>
             <FlexWrapper
