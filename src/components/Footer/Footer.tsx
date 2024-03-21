@@ -29,6 +29,7 @@ import {
   FooterLink,
 } from "@/styles/footerStyles";
 import { FooterLinksList } from "./footerData";
+import { useForm, ValidationError } from '@formspree/react';
 
 
 const socialLinks = [
@@ -48,6 +49,13 @@ const socialLinks = [
 function Footer() {
   const [email, setEmail] = React.useState("");
   const formSpreeUrl = "https://formspree.io/f/xoqogweg";
+  const [state, handleSubmit, reset] = useForm("moqgnpyl");
+
+  if (state.succeeded) {
+     alert("Submitted successfully")
+     reset()
+  }
+
 
   const openInNewTab = (url: string) => {
     window.open(url, "_blank");
@@ -72,7 +80,7 @@ function Footer() {
             ))}
           </FooterLinksContainer>
 
-          <FJoinContainer action={formSpreeUrl} method="post">
+          <FJoinContainer onSubmit={handleSubmit}>
             <FooterLinksHeading>Join us on</FooterLinksHeading>
             <JoinParagraph>
               We don&#39;t send spam so don&#39;t worry
@@ -83,8 +91,10 @@ function Footer() {
                 placeholder="Email..."
                 required
                 value={email}
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <Input type="hidden" name="message" value="Hi! Could you please provide me with information regarding your service offerings, including any packages or specializations available? Additionally, I'd like to know if there are any ongoing promotions or discounts for new clients." />
               <SubmitButton type="submit">Submit</SubmitButton>
             </SubscribeContainer>
             <FlexWrapper
